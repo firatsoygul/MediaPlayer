@@ -83,7 +83,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\1_780x35_y.png" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="Resources\ArkaplanYardim.png" />
     <None Include="Resources\ArkaplanVideo.png" />
@@ -91,6 +93,15 @@
     <None Include="Resources\ArkaplanMuzik.png" />
     <None Include="Resources\ArkaplanListe.png" />
     <None Include="Resources\ArkaplanAyarlar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CalmaListesiAP.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ArkaplanListe1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CalmaListesiAP2.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

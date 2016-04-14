@@ -148,5 +148,28 @@ namespace MediaPlayer
         }
     }
     #endregion
+    #region MPButon
+    class MPButon : Button
+    {
+        public MPButon()
+        {
+            BackColor = System.Drawing.Color.Transparent;
+            BackgroundImage = global::MediaPlayer.Properties.Resources._1_780x35_y;
+            BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            FlatAppearance.BorderSize = 0;
+            FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            ForeColor = System.Drawing.Color.Transparent;
+            Location = new System.Drawing.Point(34, 30);
+            Size = new System.Drawing.Size(240, 35);
+            TabIndex = 0;
+            Text = "MPButon";
+            UseVisualStyleBackColor = false;
+            //Click += new System.EventHandler(this.buttonVideoEkle_Click);
+        }
+    }
+    #endregion MPButon
 
 }

@@ -63,6 +63,16 @@ namespace MediaPlayer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _1_780x35_y {
+            get {
+                object obj = ResourceManager.GetObject("1_780x35_y", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ArkaplanAyarlar {
             get {
                 object obj = ResourceManager.GetObject("ArkaplanAyarlar", resourceCulture);
@@ -76,6 +86,16 @@ namespace MediaPlayer.Properties {
         internal static System.Drawing.Bitmap ArkaplanListe {
             get {
                 object obj = ResourceManager.GetObject("ArkaplanListe", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ArkaplanListe1 {
+            get {
+                object obj = ResourceManager.GetObject("ArkaplanListe1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -116,6 +136,26 @@ namespace MediaPlayer.Properties {
         internal static System.Drawing.Bitmap ArkaplanYardim {
             get {
                 object obj = ResourceManager.GetObject("ArkaplanYardim", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CalmaListesiAP {
+            get {
+                object obj = ResourceManager.GetObject("CalmaListesiAP", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap CalmaListesiAP2 {
+            get {
+                object obj = ResourceManager.GetObject("CalmaListesiAP2", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
