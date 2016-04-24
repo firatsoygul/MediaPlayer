@@ -7,3 +7,8 @@ D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.GenerateReso
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.exe
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.pdb
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csprojResolveAssemblyReference.cache
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\Interop.WMPLib.dll
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\AxInterop.WMPLib.dll
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.ResolveComReference.cache
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\Interop.WMPLib.dll
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\AxInterop.WMPLib.dll

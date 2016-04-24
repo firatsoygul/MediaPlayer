@@ -153,9 +153,9 @@ namespace MediaPlayer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap CalmaListesiAP2 {
+        internal static System.Drawing.Bitmap SanatciAP {
             get {
-                object obj = ResourceManager.GetObject("CalmaListesiAP2", resourceCulture);
+                object obj = ResourceManager.GetObject("SanatciAP", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
