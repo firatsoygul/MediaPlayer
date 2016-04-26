@@ -68,83 +68,94 @@ namespace MediaPlayer
 
         protected override void OnPaint(PaintEventArgs e)
         {
-
-            SolidBrush TabBasligi = new SolidBrush(Color.FromArgb(33, 42, 52));
-
-
-            base.OnPaint(e);
-            Bitmap B = new Bitmap(Width, Height);
-            Graphics G = Graphics.FromImage(B);
-
-            var _Graphics = G;
-
-            //  Etkisiz tab arkaplanı
-            _Graphics.Clear(Color.FromArgb(33, 42, 52));
-            _Graphics.SmoothingMode = SmoothingMode.HighSpeed;
-            _Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-            _Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
-
-            for (int TabIndex = 0; TabIndex <= TabCount - 1; TabIndex++)
+            try
             {
-                if (TabIndex == SelectedIndex)
+                SolidBrush TabBasligi = new SolidBrush(Color.FromArgb(33, 42, 52));
+            
+                base.OnPaint(e);
+                Bitmap B = new Bitmap(Width, Height); //Burası bazen hata veriyor, ayıklama içine alındı.
+                Graphics G = Graphics.FromImage(B);
+
+                var _Graphics = G;
+
+                //  Etkisiz tab arkaplanı
+                _Graphics.Clear(Color.FromArgb(33, 42, 52));
+                _Graphics.SmoothingMode = SmoothingMode.HighSpeed;
+                _Graphics.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
+                _Graphics.CompositingMode = System.Drawing.Drawing2D.CompositingMode.SourceOver;
+
+                for (int TabIndex = 0; TabIndex <= TabCount - 1; TabIndex++)
                 {
-                    // Seçilen tab başlığının içeriği
-                    Rectangle TabRect = new Rectangle(new Point(GetTabRect(TabIndex).Location.X - 2, GetTabRect(TabIndex).Location.Y - 4), new Size(GetTabRect(TabIndex).Width + 3, GetTabRect(TabIndex).Height - 8));
-
-                    // Seçilen tab başlığının rengi
-                    _Graphics.FillRectangle(TabBasligi, TabRect.X, TabRect.Y, TabRect.Width - 4, TabRect.Height + 3);
-
-                    // Seçilen tab başlığı altındaki çizgi
-                    if (Alignment == TabAlignment.Left | Alignment == TabAlignment.Right)
+                    if (TabIndex == SelectedIndex)
                     {
-                        //Dikey
-                        Rectangle TabHighlighter = new Rectangle(new Point(GetTabRect(TabIndex).X - 2, GetTabRect(TabIndex).Location.Y - (TabIndex == 0 ? 1 : 1)), new Size(4, GetTabRect(TabIndex).Height - 7));
-                        _Graphics.FillRectangle(new SolidBrush(Color.FromArgb(52, 114, 188)), TabHighlighter);
+                        // Seçilen tab başlığının içeriği
+                        Rectangle TabRect = new Rectangle(new Point(GetTabRect(TabIndex).Location.X - 2, GetTabRect(TabIndex).Location.Y - 4), new Size(GetTabRect(TabIndex).Width + 3, GetTabRect(TabIndex).Height - 8));
+
+                        // Seçilen tab başlığının rengi
+                        _Graphics.FillRectangle(TabBasligi, TabRect.X, TabRect.Y, TabRect.Width - 4, TabRect.Height + 3);
+
+                        // Seçilen tab başlığı altındaki çizgi
+                        if (Alignment == TabAlignment.Left | Alignment == TabAlignment.Right)
+                        {
+                            //Dikey
+                            Rectangle TabHighlighter = new Rectangle(new Point(GetTabRect(TabIndex).X - 2, GetTabRect(TabIndex).Location.Y - (TabIndex == 0 ? 1 : 1)), new Size(4, GetTabRect(TabIndex).Height - 7));
+                            _Graphics.FillRectangle(new SolidBrush(Color.FromArgb(52, 114, 188)), TabHighlighter);
+                        }
+                        else
+                        {
+                            //Yatay
+                            //Rectangle TabHighlighter = new Rectangle(new Point(GetTabRect(TabIndex).X, GetTabRect(TabIndex).Location.Y + GetTabRect(TabIndex).Height - 4), new Size(GetTabRect(TabIndex).Width, 5));
+                            Rectangle TabHighlighter = new Rectangle(new Point(GetTabRect(TabIndex).X, GetTabRect(TabIndex).Location.Y), new Size(GetTabRect(TabIndex).Width, GetTabRect(TabIndex).Height));
+                            _Graphics.FillRectangle(new SolidBrush(Color.FromArgb(52, 114, 188)), TabHighlighter);
+                        }
+
+                        // Seçilen tab başlığı metni
+                        _Graphics.DrawString(TabPages[TabIndex].Text, new Font(Font.FontFamily, Font.Size, FontStyle.Bold), new SolidBrush(Color.FromArgb(254, 255, 255)), new Rectangle(TabRect.Left, TabRect.Top + 14, TabRect.Width, TabRect.Height), new StringFormat { Alignment = StringAlignment.Center });
+
+                        if (this.ImageList != null)
+                        {
+                            int Index = TabPages[TabIndex].ImageIndex;
+                            if (!(Index == -1))
+                            {
+                                _Graphics.DrawImage(ImageList.Images[TabPages[TabIndex].ImageIndex], TabRect.X + 9, TabRect.Y + 6, 24, 24);
+                            }
+                        }
                     }
                     else
                     {
-                        //Yatay
-                        //Rectangle TabHighlighter = new Rectangle(new Point(GetTabRect(TabIndex).X, GetTabRect(TabIndex).Location.Y + GetTabRect(TabIndex).Height - 4), new Size(GetTabRect(TabIndex).Width, 5));
-                        Rectangle TabHighlighter = new Rectangle(new Point(GetTabRect(TabIndex).X, GetTabRect(TabIndex).Location.Y), new Size(GetTabRect(TabIndex).Width, GetTabRect(TabIndex).Height));
-                        _Graphics.FillRectangle(new SolidBrush(Color.FromArgb(52, 114, 188)), TabHighlighter);
-                    }
+                        // Etkisiz tab başlığının içeriği
+                        Rectangle TabRect = new Rectangle(new Point(GetTabRect(TabIndex).Location.X - 2, GetTabRect(TabIndex).Location.Y - 4), new Size(GetTabRect(TabIndex).Width + 3, GetTabRect(TabIndex).Height - 8));
+                        // Etkisiz tab başlığının metni
+                        _Graphics.DrawString(TabPages[TabIndex].Text, new Font(Font.FontFamily, Font.Size, FontStyle.Bold), new SolidBrush(Color.FromArgb(159, 162, 167)), new Rectangle(TabRect.Left, TabRect.Top + 14, TabRect.Width, TabRect.Height), new StringFormat { Alignment = StringAlignment.Center });
 
-                    // Seçilen tab başlığı metni
-                    _Graphics.DrawString(TabPages[TabIndex].Text, new Font(Font.FontFamily, Font.Size, FontStyle.Bold), new SolidBrush(Color.FromArgb(254, 255, 255)), new Rectangle(TabRect.Left, TabRect.Top + 14, TabRect.Width, TabRect.Height), new StringFormat { Alignment = StringAlignment.Center });
-
-                    if (this.ImageList != null)
-                    {
-                        int Index = TabPages[TabIndex].ImageIndex;
-                        if (!(Index == -1))
+                        if (this.ImageList != null)
                         {
-                            _Graphics.DrawImage(ImageList.Images[TabPages[TabIndex].ImageIndex], TabRect.X + 9, TabRect.Y + 6, 24, 24);
+                            int Index = TabPages[TabIndex].ImageIndex;
+                            if (!(Index == -1))
+                            {
+                                _Graphics.DrawImage(ImageList.Images[TabPages[TabIndex].ImageIndex], TabRect.X + 9, TabRect.Y + 6, 24, 24);
+                            }
                         }
+
                     }
                 }
-                else
-                {
-                    // Etkisiz tab başlığının içeriği
-                    Rectangle TabRect = new Rectangle(new Point(GetTabRect(TabIndex).Location.X - 2, GetTabRect(TabIndex).Location.Y - 4), new Size(GetTabRect(TabIndex).Width + 3, GetTabRect(TabIndex).Height - 8));
-                    // Etkisiz tab başlığının metni
-                    _Graphics.DrawString(TabPages[TabIndex].Text, new Font(Font.FontFamily, Font.Size, FontStyle.Bold), new SolidBrush(Color.FromArgb(159, 162, 167)), new Rectangle(TabRect.Left, TabRect.Top + 14, TabRect.Width, TabRect.Height), new StringFormat { Alignment = StringAlignment.Center });
-
-                    if (this.ImageList != null)
-                    {
-                        int Index = TabPages[TabIndex].ImageIndex;
-                        if (!(Index == -1))
-                        {
-                            _Graphics.DrawImage(ImageList.Images[TabPages[TabIndex].ImageIndex], TabRect.X + 9, TabRect.Y + 6, 24, 24);
-                        }
-                    }
-
-                }
+                e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
+                e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
+                e.Graphics.DrawImage((Image)B.Clone(), 0, 0);
+                G.Dispose();
+                B.Dispose();
             }
-            e.Graphics.SmoothingMode = SmoothingMode.HighQuality;
-            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
-            e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
-            e.Graphics.DrawImage((Image)B.Clone(), 0, 0);
-            G.Dispose();
-            B.Dispose();
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+
+
+
+
         }
     }
     #endregion

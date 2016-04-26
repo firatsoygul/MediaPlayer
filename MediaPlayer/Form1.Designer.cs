@@ -31,9 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.openFileDialog_Dosya_Ekle = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog_Klasor_Ekle = new System.Windows.Forms.FolderBrowserDialog();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label_Hata_Baslık = new System.Windows.Forms.Label();
             this.mpTabControl_Ana_Menu = new MediaPlayer.MPTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.mpTabControl_Listeler = new MediaPlayer.MPTabControl();
@@ -60,7 +57,19 @@
             this.column_SanatciListesi_Sure = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.column_SanatciListesi_Dizin = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.listView_Muzik = new System.Windows.Forms.ListView();
+            this.column_Muzik_Turu = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Muzik_DosyaAdi = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Muzik_Sure = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Muzik_Sanatci = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Muzik_Album = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Muzik_Konum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.listView_Video = new System.Windows.Forms.ListView();
+            this.column_Video_Turu = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Video_DosyaAdi = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Video_Sure = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.column_Video_Konum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.label_Zaman = new System.Windows.Forms.Label();
             this.label_ParcaAdi = new System.Windows.Forms.Label();
@@ -72,13 +81,14 @@
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.panel1.SuspendLayout();
             this.mpTabControl_Ana_Menu.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.mpTabControl_Listeler.SuspendLayout();
             this.tabPage_Tum_Listeler.SuspendLayout();
             this.tabPage_Album.SuspendLayout();
             this.tabPage_Sanatcilar.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
@@ -87,41 +97,8 @@
             // openFileDialog_Dosya_Ekle
             // 
             this.openFileDialog_Dosya_Ekle.FileName = "openFileDialog1";
+            this.openFileDialog_Dosya_Ekle.Filter = resources.GetString("openFileDialog_Dosya_Ekle.Filter");
             this.openFileDialog_Dosya_Ekle.Multiselect = true;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.DarkOrange;
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label_Hata_Baslık);
-            this.panel1.Location = new System.Drawing.Point(-10, 280);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(982, 107);
-            this.panel1.TabIndex = 1;
-            this.panel1.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.ForeColor = System.Drawing.Color.White;
-            this.label2.Location = new System.Drawing.Point(325, 58);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(339, 32);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Bu dosya türü desteklenmiyor.";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // label_Hata_Baslık
-            // 
-            this.label_Hata_Baslık.AutoSize = true;
-            this.label_Hata_Baslık.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_Hata_Baslık.ForeColor = System.Drawing.Color.White;
-            this.label_Hata_Baslık.Location = new System.Drawing.Point(425, 10);
-            this.label_Hata_Baslık.Name = "label_Hata_Baslık";
-            this.label_Hata_Baslık.Size = new System.Drawing.Size(125, 41);
-            this.label_Hata_Baslık.TabIndex = 0;
-            this.label_Hata_Baslık.Text = "UYARI !";
             // 
             // mpTabControl_Ana_Menu
             // 
@@ -403,6 +380,7 @@
             // 
             this.tabPage2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.tabPage2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage2.Controls.Add(this.listView_Muzik);
             this.tabPage2.Location = new System.Drawing.Point(4, 49);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -410,16 +388,106 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Müzik";
             // 
+            // listView_Muzik
+            // 
+            this.listView_Muzik.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("listView_Muzik.BackgroundImage")));
+            this.listView_Muzik.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.column_Muzik_Turu,
+            this.column_Muzik_DosyaAdi,
+            this.column_Muzik_Sure,
+            this.column_Muzik_Sanatci,
+            this.column_Muzik_Album,
+            this.column_Muzik_Konum});
+            this.listView_Muzik.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_Muzik.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.listView_Muzik.GridLines = true;
+            this.listView_Muzik.Location = new System.Drawing.Point(3, 3);
+            this.listView_Muzik.Margin = new System.Windows.Forms.Padding(0);
+            this.listView_Muzik.Name = "listView_Muzik";
+            this.listView_Muzik.Size = new System.Drawing.Size(950, 502);
+            this.listView_Muzik.TabIndex = 0;
+            this.listView_Muzik.UseCompatibleStateImageBehavior = false;
+            this.listView_Muzik.View = System.Windows.Forms.View.Details;
+            // 
+            // column_Muzik_Turu
+            // 
+            this.column_Muzik_Turu.Text = "";
+            this.column_Muzik_Turu.Width = 80;
+            // 
+            // column_Muzik_DosyaAdi
+            // 
+            this.column_Muzik_DosyaAdi.Text = "Dosya Adı";
+            this.column_Muzik_DosyaAdi.Width = 250;
+            // 
+            // column_Muzik_Sure
+            // 
+            this.column_Muzik_Sure.Text = "Süre";
+            this.column_Muzik_Sure.Width = 110;
+            // 
+            // column_Muzik_Sanatci
+            // 
+            this.column_Muzik_Sanatci.Text = "Sanatçı";
+            this.column_Muzik_Sanatci.Width = 250;
+            // 
+            // column_Muzik_Album
+            // 
+            this.column_Muzik_Album.Text = "Albüm";
+            this.column_Muzik_Album.Width = 250;
+            // 
+            // column_Muzik_Konum
+            // 
+            this.column_Muzik_Konum.Text = "Konum";
+            this.column_Muzik_Konum.Width = 300;
+            // 
             // tabPage3
             // 
             this.tabPage3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.tabPage3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage3.Controls.Add(this.listView_Video);
             this.tabPage3.Location = new System.Drawing.Point(4, 49);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage3.Size = new System.Drawing.Size(956, 508);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Video";
+            // 
+            // listView_Video
+            // 
+            this.listView_Video.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("listView_Video.BackgroundImage")));
+            this.listView_Video.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.column_Video_Turu,
+            this.column_Video_DosyaAdi,
+            this.column_Video_Sure,
+            this.column_Video_Konum});
+            this.listView_Video.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listView_Video.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.listView_Video.GridLines = true;
+            this.listView_Video.Location = new System.Drawing.Point(3, 3);
+            this.listView_Video.Name = "listView_Video";
+            this.listView_Video.Size = new System.Drawing.Size(950, 502);
+            this.listView_Video.TabIndex = 0;
+            this.listView_Video.UseCompatibleStateImageBehavior = false;
+            this.listView_Video.View = System.Windows.Forms.View.Details;
+            // 
+            // column_Video_Turu
+            // 
+            this.column_Video_Turu.Text = "";
+            this.column_Video_Turu.Width = 80;
+            // 
+            // column_Video_DosyaAdi
+            // 
+            this.column_Video_DosyaAdi.Text = "Dosya Adı";
+            this.column_Video_DosyaAdi.Width = 250;
+            // 
+            // column_Video_Sure
+            // 
+            this.column_Video_Sure.Text = "Sure";
+            this.column_Video_Sure.Width = 100;
+            // 
+            // column_Video_Konum
+            // 
+            this.column_Video_Konum.Text = "Konum";
+            this.column_Video_Konum.Width = 300;
             // 
             // tabPage4
             // 
@@ -543,7 +611,6 @@
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
             this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(950, 466);
             this.axWindowsMediaPlayer1.TabIndex = 0;
-            this.axWindowsMediaPlayer1.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer1_PlayStateChange);
             this.axWindowsMediaPlayer1.PositionChange += new AxWMPLib._WMPOCXEvents_PositionChangeEventHandler(this.axWindowsMediaPlayer1_PositionChange);
             this.axWindowsMediaPlayer1.CurrentItemChange += new AxWMPLib._WMPOCXEvents_CurrentItemChangeEventHandler(this.axWindowsMediaPlayer1_CurrentItemChange);
             // 
@@ -575,19 +642,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.ClientSize = new System.Drawing.Size(962, 561);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.mpTabControl_Ana_Menu);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.mpTabControl_Ana_Menu.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.mpTabControl_Listeler.ResumeLayout(false);
             this.tabPage_Tum_Listeler.ResumeLayout(false);
             this.tabPage_Album.ResumeLayout(false);
             this.tabPage_Sanatcilar.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
@@ -638,9 +704,18 @@
         private System.Windows.Forms.Label label_ParcaAdi;
         private System.Windows.Forms.Label label_Sanatci;
         private System.Windows.Forms.Label label_Zaman;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label_Hata_Baslık;
+        private System.Windows.Forms.ListView listView_Muzik;
+        private System.Windows.Forms.ColumnHeader column_Muzik_Turu;
+        private System.Windows.Forms.ColumnHeader column_Muzik_DosyaAdi;
+        private System.Windows.Forms.ColumnHeader column_Muzik_Sure;
+        private System.Windows.Forms.ColumnHeader column_Muzik_Sanatci;
+        private System.Windows.Forms.ColumnHeader column_Muzik_Album;
+        private System.Windows.Forms.ListView listView_Video;
+        private System.Windows.Forms.ColumnHeader column_Muzik_Konum;
+        private System.Windows.Forms.ColumnHeader column_Video_Turu;
+        private System.Windows.Forms.ColumnHeader column_Video_DosyaAdi;
+        private System.Windows.Forms.ColumnHeader column_Video_Sure;
+        private System.Windows.Forms.ColumnHeader column_Video_Konum;
     }
 }
 

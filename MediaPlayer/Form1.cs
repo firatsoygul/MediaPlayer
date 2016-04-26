@@ -21,7 +21,7 @@ namespace MediaPlayer
         {
             InitializeComponent();
         }
-
+        #region Dosya Ekle
         private void mpButon_Dosya_Ekle_Click(object sender, EventArgs e)
         {
             if (openFileDialog_Dosya_Ekle.ShowDialog() == System.Windows.Forms.DialogResult.OK)//Ok tuşuna basıldıysa...
@@ -52,7 +52,8 @@ namespace MediaPlayer
             }
             lg.sil(); //Datatable boşaltılıyor.
         }
-
+        #endregion Dosya Ekle
+        #region Klasör Ekle
         private void mpButon_Klasor_Ekle_Click(object sender, EventArgs e)
         {
             if (folderBrowserDialog_Klasor_Ekle.ShowDialog() == System.Windows.Forms.DialogResult.OK)//Ok tuşuna basıldıysa...
@@ -67,27 +68,70 @@ namespace MediaPlayer
             }
 
             /* Albüm listesi oluşturuluyor.*/
-            ListeGrup lg = new ListeGrup(); //Yeni bir listeleme grubu oluşturuluyor.
+            ListeGrup lg_a = new ListeGrup(); //Yeni bir listeleme grubu oluşturuluyor.
             listView_Album.Items.Clear(); //Albüm listView temizleniyor.
             foreach (ListViewItem item in listView_Tum_Liste.Items) //Tüm listesindeki satır kadar döngüye giriliyor.
             {
-                lg.Ekle(item.SubItems[3].Text);//Tüm listesindeki parçaların dizinleri, ilgili sütundan alınarak listeleme grubu nesnesine gönderiliyor.
-                listView_Album.Items.Add(lg.Bilgi(item.Index, new[] { "Album", "Sanatci", "DosyaAdi", "Sure", "Dizin" }));//Listeleme grubu nesnesinin dataTablesindeki satır nosu ve istenen bilgiler girilerek, Item olarak döndürülüyor ve Album ListViewine Item olarak ekleniyor. 
+                lg_a.Ekle(item.SubItems[3].Text);//Tüm listesindeki parçaların dizinleri, ilgili sütundan alınarak listeleme grubu nesnesine gönderiliyor.
+                listView_Album.Items.Add(lg_a.Bilgi(item.Index, new[] { "Album", "Sanatci", "DosyaAdi", "Sure", "Dizin" }));//Listeleme grubu nesnesinin dataTablesindeki satır nosu ve istenen bilgiler girilerek, Item olarak döndürülüyor ve Album ListViewine Item olarak ekleniyor. 
             }
-            lg.sil(); //Datatable boşaltılıyor.
+            lg_a.sil(); //Datatable boşaltılıyor.
 
             /* Sanatçı listesi oluşturuluyor. */
+            ListeGrup lg_s = new ListeGrup(); //Yeni bir listeleme grubu oluşturuluyor.
             listView_Sanatci.Items.Clear(); //Sanatçı listView temizleniyor.
+            foreach (ListViewItem item in listView_Tum_Liste.Items) //Tüm listesindeki satır kadar döngüye giriliyor.
+            {
+                lg_s.Ekle(item.SubItems[3].Text);//Tüm listesindeki parçaların dizinleri, ilgili sütundan alınarak listeleme grubu nesnesine gönderiliyor.
+                listView_Sanatci.Items.Add(lg_s.Bilgi(item.Index, new[]{"Sanatci", "DosyaAdi", "Sure", "Dizin" }));//Listeleme grubu nesnesinin dataTablesindeki satır nosu ve istenen bilgiler girilerek, Item olarak döndürülüyor ve Sanatçı ListViewine Item olarak ekleniyor. 
+            }
+            lg_s.sil(); //Datatable boşaltılıyor.
+
+            /* Müzik listesi oluşturuluyor.*/
+            ListeGrup lg_m = new ListeGrup(); //Yeni bir listeleme grubu oluşturuluyor.
+            listView_Muzik.Items.Clear(); //Müzik listesi temizleniyor.
+            foreach (ListViewItem item in listView_Tum_Liste.Items) //Tüm listesindeki satır kadar döngüye giriliyor.
+            {
+                lg_m.Ekle(item.SubItems[3].Text);//Tüm listesindeki parçaların dizinleri, ilgili sütundan alınarak listeleme grubu nesnesine gönderiliyor.
+            }
+
+            lg_m.Sorgu(new[] { ".mp3", ".wma", ".wav", ".amr" }); //Nesne içindeki sorgu tablosu hazırlanıyor.
+
             foreach (ListViewItem item in listView_Tum_Liste.Items)
             {
-                lg.Ekle(item.SubItems[3].Text);//Tüm listesindeki parçaların dizinleri, ilgili sütundan alınarak listeleme grubu nesnesine gönderiliyor.
-                listView_Sanatci.Items.Add(lg.Bilgi(item.Index, new[]{"Sanatci", "DosyaAdi", "Sure", "Dizin" }));//Listeleme grubu nesnesinin dataTablesindeki satır nosu ve istenen bilgiler girilerek, Item olarak döndürülüyor ve Sanatçı ListViewine Item olarak ekleniyor. 
+                ListViewItem l = lg_m.SorguBilgi(item.Index, new[] { "Resim", "DosyaAdi", "Sure", "Sanatci", "Album", "Dizin" });
+                if (l.Text != "")
+                {
+                    listView_Muzik.Items.Add(l);
+                }
             }
-            lg.sil(); //Datatable boşaltılıyor.
+
+            lg_m.sil(); //Datatable boşaltılıyor.
+
+            /* Video listesi oluşturuluyor.*/
+            ListeGrup lg_v = new ListeGrup(); //Yeni bir listeleme grubu oluşturuluyor.
+            listView_Video.Items.Clear(); //Müzik listesi temizleniyor.
+            foreach (ListViewItem item in listView_Tum_Liste.Items) //Tüm listesindeki satır kadar döngüye giriliyor.
+            {
+                lg_v.Ekle(item.SubItems[3].Text);//Tüm listesindeki parçaların dizinleri, ilgili sütundan alınarak listeleme grubu nesnesine gönderiliyor.
+            }
+
+            lg_v.Sorgu(new[] { ".mp4", ".avi", ".mpg", ".mpeg", ".wmv" }); //Nesne içindeki sorgu tablosu hazırlanıyor.
+
+            foreach (ListViewItem item in listView_Tum_Liste.Items)
+            {
+                ListViewItem l = lg_v.SorguBilgi(item.Index, new[] { "Resim", "DosyaAdi", "Sure", "Dizin", "Album" });
+                if (l.Text != "")
+                {
+                    listView_Video.Items.Add(l);
+                }
+            }
+
+            lg_v.sil(); //Datatable boşaltılıyor.
         }
-
+        #endregion Klasör Ekle
         public IWMPPlaylist tumListe;
-
+        #region Tüm Liste Çift Tıklama
         private void listView_Tum_Liste_MouseDoubleClick(object sender, MouseEventArgs e)
         {
 
@@ -110,13 +154,15 @@ namespace MediaPlayer
             label_Sanatci.Text = axWindowsMediaPlayer1.currentMedia.getItemInfo("Album").ToString();
             label_ParcaAdi.Text = axWindowsMediaPlayer1.currentMedia.name;
         }
-
+        #endregion Tüm Liste Çift Tıklama
+        #region axMediaPlayer Mevcut Medyadaki Değişim
         private void axWindowsMediaPlayer1_CurrentItemChange(object sender, AxWMPLib._WMPOCXEvents_CurrentItemChangeEvent e)
         {
             //listView_Tum_Liste.Focus();
             //listView_Tum_Liste.Items[???].Selected=true;
         }
-
+        #endregion axMediaPlayer Mevcut Medyadaki Değişim
+        #region Albüm Listesi Çift Tıklama
         private void listView_Album_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Albüm Listesi"); //Yeni playlist oluşturuluyor.
@@ -133,7 +179,8 @@ namespace MediaPlayer
             axWindowsMediaPlayer1.Ctlcontrols.playItem(axWindowsMediaPlayer1.currentPlaylist.get_Item(sn));// Oynat
             mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
         }
-
+        #endregion Albüm Listesi Çift Tıklama
+        #region Sanatçı Listesi Çift Tıklama
         private void listView_Sanatci_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             axWindowsMediaPlayer1.Ctlcontrols.stop();
@@ -143,33 +190,31 @@ namespace MediaPlayer
             //pl.sil(); //Playlist siliniyor.
             mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
         }
-
+        #endregion Sanatçı Listesi Çift Tıklama
+        #region Form Load
         private void Form1_Load(object sender, EventArgs e)
         {
             //axWindowsMediaPlayer1.uiMode = "none";
 
         }
-
-        
-            
-
+        #endregion Form Load
+        #region Sil Buton Tıklama
         private void mpButon_Sil_Click(object sender, EventArgs e)
         {
             MPUyari u2 = new MPUyari();
             u2.Goster("Hata", "Bu dosya türleri desteklenmiyor.","HATA !");
 
         }
-        int i = 1;
-        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
-        {
-            
-        }
+        #endregion Sil Buton Tıklama
 
+        int i = 1;
+        #region axMediaPlayer Medya Akış değişimi
         private void axWindowsMediaPlayer1_PositionChange(object sender, AxWMPLib._WMPOCXEvents_PositionChangeEvent e)
         {
             i += 1;
 
             label_Zaman.Text = i.ToString();
         }
+        #endregion axMediaPlayer Medya Akış değişimi
     }
 }
