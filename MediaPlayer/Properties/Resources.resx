@@ -118,34 +118,58 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="durdur_ust" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\durdur_ust.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArkaplanAyarlar" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ArkaplanAyarlar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArkaplanYardim" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ArkaplanYardim.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oynat" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\oynat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ArkaplanMuzik" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ArkaplanMuzik.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="durdur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\durdur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="geri_ust" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\geri_ust.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="CalmaListesiAP" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\CalmaListesiAP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="oynat_ust" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\oynat_ust.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="ArkaplanListe1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ArkaplanListe1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ArkaplanVideo" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ArkaplanVideo.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ArkaplanAyarlar" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ArkaplanAyarlar.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="1_780x35_y" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\1_780x35_y.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ArkaplanListe" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ArkaplanListe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ArkaplanMuzik" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ArkaplanMuzik.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ArkaplanOynat" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ArkaplanOynat.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ArkaplanYardim" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ArkaplanYardim.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="CalmaListesiAP" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\CalmaListesiAP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="ileri_ust" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ileri_ust.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="SanatciAP" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\SanatciAP.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="1_780x35_y" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\1_780x35_y.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dur" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dur.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="dur_ust" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\dur_ust.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

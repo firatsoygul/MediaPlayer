@@ -40,7 +40,7 @@ namespace MediaPlayer.Uyari
 
             lbl_Baslik.AutoSize = true;
             lbl_Baslik.ForeColor = System.Drawing.Color.White;
-            lbl_Baslik.Location = new System.Drawing.Point(425, 10);
+            //lbl_Baslik.Location = new System.Drawing.Point(425, 10);
             lbl_Baslik.Name = "label_Uyari_Baslık";
             lbl_Baslik.Size = new System.Drawing.Size(115, 41);
             lbl_Baslik.TabIndex = 0;
@@ -51,7 +51,7 @@ namespace MediaPlayer.Uyari
 
             lbl_Ayrinti.AutoSize = true;
             lbl_Ayrinti.ForeColor = System.Drawing.Color.White;
-            lbl_Ayrinti.Location = new System.Drawing.Point(310, 52);
+            //lbl_Ayrinti.Location = new System.Drawing.Point(310, 52);
             lbl_Ayrinti.Name = "label_Uyari_Ayrinti";
             lbl_Ayrinti.Size = new System.Drawing.Size(223, 32);
             lbl_Ayrinti.TabIndex = 1;
@@ -79,7 +79,7 @@ namespace MediaPlayer.Uyari
                     }
                     this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(231)))), ((int)(((byte)(76)))), ((int)(((byte)(60))))); 
                     break;
-                case "Uyarı":
+                case "Uyari":
                     if (uyari_basligi == "")
                     {
                         baslik = "UYARI !";
@@ -110,10 +110,15 @@ namespace MediaPlayer.Uyari
 
             frm1.Controls.Add(this); // Bu bileşen, Form1 e ait bir bileşen olarak tanımlanıyor
 
+            lbl_Baslik.Location = new System.Drawing.Point(this.Width / 2 - lbl_Baslik.Width / 2, 10); //Başlık panele ortalanıyor.
+            lbl_Ayrinti.Location = new System.Drawing.Point(this.Width / 2 - lbl_Ayrinti.Width / 2, 52);//Ayrıntı panele ortalanıyor.
+
             this.Visible = true; // Bileşeni göster.
-            this.BringToFront(); //Bileşeni en öne getir.
             lbl_Baslik.Visible = true; // Başlık labelini göster.
             lbl_Ayrinti.Visible = true; // Ayrıntı labelini göster.
+            this.BringToFront(); //Bileşeni en öne getir.
+            //lbl_Baslik.BringToFront(); //Başlığı en öne getir.
+            //lbl_Ayrinti.BringToFront(); //Ayrıntıyı en öne getir.
 
             tm.Interval = uyari_suresi;
             tm.Enabled = true;
@@ -121,6 +126,15 @@ namespace MediaPlayer.Uyari
 
 
 
+        }
+
+        public void Kapat()
+        {
+            this.Visible = false; // Bileşeni kapat.
+            lbl_Baslik.Visible = false; // Başlık labelini kapat.
+            lbl_Ayrinti.Visible = false; // Ayrıntı labelini kapat.
+
+            tm.Enabled = false;
         }
 
         private void tm_tick (object sender, EventArgs e)

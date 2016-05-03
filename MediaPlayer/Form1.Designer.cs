@@ -28,9 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.openFileDialog_Dosya_Ekle = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog_Klasor_Ekle = new System.Windows.Forms.FolderBrowserDialog();
+            this.backgroundWorker_ListeOlustur = new System.ComponentModel.BackgroundWorker();
+            this.folderBrowserDialog_KlasorEkle = new System.Windows.Forms.FolderBrowserDialog();
+            this.ımageList_Muzik = new System.Windows.Forms.ImageList(this.components);
+            this.ımageList_Video = new System.Windows.Forms.ImageList(this.components);
             this.mpTabControl_Ana_Menu = new MediaPlayer.MPTabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.mpTabControl_Listeler = new MediaPlayer.MPTabControl();
@@ -71,12 +75,15 @@
             this.column_Video_Sure = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.column_Video_Konum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.button_KontrolDur = new System.Windows.Forms.Button();
+            this.button_KontrolDurdur = new System.Windows.Forms.Button();
             this.label_Zaman = new System.Windows.Forms.Label();
             this.label_ParcaAdi = new System.Windows.Forms.Label();
-            this.label_Sanatci = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label_SanatciAdi = new System.Windows.Forms.Label();
+            this.button_KontrolGeri = new System.Windows.Forms.Button();
+            this.button_Kontrolileri = new System.Windows.Forms.Button();
+            this.button_KontrolOynat = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
             this.tabPage5 = new System.Windows.Forms.TabPage();
@@ -90,6 +97,7 @@
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tabPage4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
@@ -99,6 +107,30 @@
             this.openFileDialog_Dosya_Ekle.FileName = "openFileDialog1";
             this.openFileDialog_Dosya_Ekle.Filter = resources.GetString("openFileDialog_Dosya_Ekle.Filter");
             this.openFileDialog_Dosya_Ekle.Multiselect = true;
+            // 
+            // backgroundWorker_ListeOlustur
+            // 
+            this.backgroundWorker_ListeOlustur.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_ListeOlustur_DoWork);
+            this.backgroundWorker_ListeOlustur.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_ListeOlustur_RunWorkerCompleted);
+            // 
+            // ımageList_Muzik
+            // 
+            this.ımageList_Muzik.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList_Muzik.ImageStream")));
+            this.ımageList_Muzik.TransparentColor = System.Drawing.Color.Transparent;
+            this.ımageList_Muzik.Images.SetKeyName(0, "amr.png");
+            this.ımageList_Muzik.Images.SetKeyName(1, "mp3.png");
+            this.ımageList_Muzik.Images.SetKeyName(2, "wav.png");
+            this.ımageList_Muzik.Images.SetKeyName(3, "wma.png");
+            // 
+            // ımageList_Video
+            // 
+            this.ımageList_Video.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("ımageList_Video.ImageStream")));
+            this.ımageList_Video.TransparentColor = System.Drawing.Color.Transparent;
+            this.ımageList_Video.Images.SetKeyName(0, "avi.png");
+            this.ımageList_Video.Images.SetKeyName(1, "mp4.png");
+            this.ımageList_Video.Images.SetKeyName(2, "mpeg.png");
+            this.ımageList_Video.Images.SetKeyName(3, "mpg.png");
+            this.ımageList_Video.Images.SetKeyName(4, "wmv.png");
             // 
             // mpTabControl_Ana_Menu
             // 
@@ -122,6 +154,7 @@
             this.mpTabControl_Ana_Menu.Size = new System.Drawing.Size(964, 561);
             this.mpTabControl_Ana_Menu.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.mpTabControl_Ana_Menu.TabIndex = 0;
+            this.mpTabControl_Ana_Menu.Enter += new System.EventHandler(this.Durdur);
             // 
             // tabPage1
             // 
@@ -401,10 +434,12 @@
             this.listView_Muzik.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_Muzik.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.listView_Muzik.GridLines = true;
+            this.listView_Muzik.LargeImageList = this.ımageList_Muzik;
             this.listView_Muzik.Location = new System.Drawing.Point(3, 3);
             this.listView_Muzik.Margin = new System.Windows.Forms.Padding(0);
             this.listView_Muzik.Name = "listView_Muzik";
             this.listView_Muzik.Size = new System.Drawing.Size(950, 502);
+            this.listView_Muzik.SmallImageList = this.ımageList_Muzik;
             this.listView_Muzik.TabIndex = 0;
             this.listView_Muzik.UseCompatibleStateImageBehavior = false;
             this.listView_Muzik.View = System.Windows.Forms.View.Details;
@@ -462,9 +497,11 @@
             this.listView_Video.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listView_Video.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.listView_Video.GridLines = true;
+            this.listView_Video.LargeImageList = this.ımageList_Video;
             this.listView_Video.Location = new System.Drawing.Point(3, 3);
             this.listView_Video.Name = "listView_Video";
             this.listView_Video.Size = new System.Drawing.Size(950, 502);
+            this.listView_Video.SmallImageList = this.ımageList_Video;
             this.listView_Video.TabIndex = 0;
             this.listView_Video.UseCompatibleStateImageBehavior = false;
             this.listView_Video.View = System.Windows.Forms.View.Details;
@@ -493,12 +530,15 @@
             // 
             this.tabPage4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.tabPage4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage4.Controls.Add(this.trackBar1);
+            this.tabPage4.Controls.Add(this.button_KontrolDur);
+            this.tabPage4.Controls.Add(this.button_KontrolDurdur);
             this.tabPage4.Controls.Add(this.label_Zaman);
             this.tabPage4.Controls.Add(this.label_ParcaAdi);
-            this.tabPage4.Controls.Add(this.label_Sanatci);
-            this.tabPage4.Controls.Add(this.button3);
-            this.tabPage4.Controls.Add(this.button2);
-            this.tabPage4.Controls.Add(this.button1);
+            this.tabPage4.Controls.Add(this.label_SanatciAdi);
+            this.tabPage4.Controls.Add(this.button_KontrolGeri);
+            this.tabPage4.Controls.Add(this.button_Kontrolileri);
+            this.tabPage4.Controls.Add(this.button_KontrolOynat);
             this.tabPage4.Controls.Add(this.tableLayoutPanel1);
             this.tabPage4.Location = new System.Drawing.Point(4, 49);
             this.tabPage4.Margin = new System.Windows.Forms.Padding(0);
@@ -507,6 +547,48 @@
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "Oynat";
             // 
+            // trackBar1
+            // 
+            this.trackBar1.LargeChange = 1;
+            this.trackBar1.Location = new System.Drawing.Point(471, 459);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(417, 45);
+            this.trackBar1.TabIndex = 10;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // button_KontrolDur
+            // 
+            this.button_KontrolDur.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button_KontrolDur.BackgroundImage = global::MediaPlayer.Properties.Resources.dur;
+            this.button_KontrolDur.FlatAppearance.BorderSize = 0;
+            this.button_KontrolDur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_KontrolDur.Location = new System.Drawing.Point(61, 462);
+            this.button_KontrolDur.Name = "button_KontrolDur";
+            this.button_KontrolDur.Size = new System.Drawing.Size(50, 40);
+            this.button_KontrolDur.TabIndex = 9;
+            this.button_KontrolDur.UseVisualStyleBackColor = true;
+            this.button_KontrolDur.Click += new System.EventHandler(this.button_KontrolDur_Click);
+            this.button_KontrolDur.MouseLeave += new System.EventHandler(this.button_KontrolDur_MouseLeave);
+            this.button_KontrolDur.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolDur_MouseMove);
+            // 
+            // button_KontrolDurdur
+            // 
+            this.button_KontrolDurdur.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button_KontrolDurdur.BackgroundImage = global::MediaPlayer.Properties.Resources.durdur;
+            this.button_KontrolDurdur.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_KontrolDurdur.FlatAppearance.BorderSize = 0;
+            this.button_KontrolDurdur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_KontrolDurdur.ForeColor = System.Drawing.Color.Transparent;
+            this.button_KontrolDurdur.Location = new System.Drawing.Point(112, 462);
+            this.button_KontrolDurdur.Name = "button_KontrolDurdur";
+            this.button_KontrolDurdur.Size = new System.Drawing.Size(70, 40);
+            this.button_KontrolDurdur.TabIndex = 7;
+            this.button_KontrolDurdur.UseVisualStyleBackColor = true;
+            this.button_KontrolDurdur.Visible = false;
+            this.button_KontrolDurdur.Click += new System.EventHandler(this.button_KontrolDurdur_Click);
+            this.button_KontrolDurdur.MouseLeave += new System.EventHandler(this.button_KontrolDurdur_MouseLeave);
+            this.button_KontrolDurdur.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolDurdur_MouseMove);
+            // 
             // label_Zaman
             // 
             this.label_Zaman.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -514,7 +596,7 @@
             this.label_Zaman.BackColor = System.Drawing.Color.Transparent;
             this.label_Zaman.Font = new System.Drawing.Font("Calibri Light", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label_Zaman.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_Zaman.Location = new System.Drawing.Point(214, 477);
+            this.label_Zaman.Location = new System.Drawing.Point(260, 478);
             this.label_Zaman.Name = "label_Zaman";
             this.label_Zaman.Size = new System.Drawing.Size(55, 24);
             this.label_Zaman.TabIndex = 6;
@@ -527,63 +609,75 @@
             this.label_ParcaAdi.BackColor = System.Drawing.Color.Transparent;
             this.label_ParcaAdi.Font = new System.Drawing.Font("Calibri", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label_ParcaAdi.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.label_ParcaAdi.Location = new System.Drawing.Point(293, 492);
+            this.label_ParcaAdi.Location = new System.Drawing.Point(334, 485);
             this.label_ParcaAdi.Name = "label_ParcaAdi";
             this.label_ParcaAdi.Size = new System.Drawing.Size(56, 14);
             this.label_ParcaAdi.TabIndex = 5;
             this.label_ParcaAdi.Text = "Parça adı";
             // 
-            // label_Sanatci
+            // label_SanatciAdi
             // 
-            this.label_Sanatci.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label_Sanatci.AutoSize = true;
-            this.label_Sanatci.BackColor = System.Drawing.Color.Transparent;
-            this.label_Sanatci.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label_Sanatci.ForeColor = System.Drawing.SystemColors.ControlLight;
-            this.label_Sanatci.Location = new System.Drawing.Point(292, 470);
-            this.label_Sanatci.Name = "label_Sanatci";
-            this.label_Sanatci.Size = new System.Drawing.Size(65, 23);
-            this.label_Sanatci.TabIndex = 4;
-            this.label_Sanatci.Text = "Sanatçı";
+            this.label_SanatciAdi.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label_SanatciAdi.AutoSize = true;
+            this.label_SanatciAdi.BackColor = System.Drawing.Color.Transparent;
+            this.label_SanatciAdi.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label_SanatciAdi.ForeColor = System.Drawing.SystemColors.ControlLight;
+            this.label_SanatciAdi.Location = new System.Drawing.Point(332, 463);
+            this.label_SanatciAdi.Name = "label_SanatciAdi";
+            this.label_SanatciAdi.Size = new System.Drawing.Size(65, 23);
+            this.label_SanatciAdi.TabIndex = 4;
+            this.label_SanatciAdi.Text = "Sanatçı";
             // 
-            // button3
+            // button_KontrolGeri
             // 
-            this.button3.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button3.BackgroundImage")));
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.Transparent;
-            this.button3.Location = new System.Drawing.Point(8, 477);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 23);
-            this.button3.TabIndex = 3;
-            this.button3.UseVisualStyleBackColor = true;
+            this.button_KontrolGeri.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button_KontrolGeri.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_KontrolGeri.BackgroundImage")));
+            this.button_KontrolGeri.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_KontrolGeri.FlatAppearance.BorderSize = 0;
+            this.button_KontrolGeri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_KontrolGeri.ForeColor = System.Drawing.Color.Transparent;
+            this.button_KontrolGeri.Location = new System.Drawing.Point(8, 462);
+            this.button_KontrolGeri.Name = "button_KontrolGeri";
+            this.button_KontrolGeri.Size = new System.Drawing.Size(50, 40);
+            this.button_KontrolGeri.TabIndex = 3;
+            this.button_KontrolGeri.UseVisualStyleBackColor = true;
+            this.button_KontrolGeri.Click += new System.EventHandler(this.button_KontrolGeri_Click);
+            this.button_KontrolGeri.MouseLeave += new System.EventHandler(this.button_KontrolGeri_MouseLeave);
+            this.button_KontrolGeri.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolGeri_MouseMove);
             // 
-            // button2
+            // button_Kontrolileri
             // 
-            this.button2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button2.BackgroundImage")));
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button2.ForeColor = System.Drawing.Color.Transparent;
-            this.button2.Location = new System.Drawing.Point(138, 477);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(50, 23);
-            this.button2.TabIndex = 2;
-            this.button2.UseVisualStyleBackColor = true;
+            this.button_Kontrolileri.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button_Kontrolileri.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button_Kontrolileri.BackgroundImage")));
+            this.button_Kontrolileri.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_Kontrolileri.FlatAppearance.BorderSize = 0;
+            this.button_Kontrolileri.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Kontrolileri.ForeColor = System.Drawing.Color.Transparent;
+            this.button_Kontrolileri.Location = new System.Drawing.Point(188, 462);
+            this.button_Kontrolileri.Name = "button_Kontrolileri";
+            this.button_Kontrolileri.Size = new System.Drawing.Size(50, 40);
+            this.button_Kontrolileri.TabIndex = 2;
+            this.button_Kontrolileri.UseVisualStyleBackColor = true;
+            this.button_Kontrolileri.Click += new System.EventHandler(this.button_Kontrolileri_Click);
+            this.button_Kontrolileri.MouseLeave += new System.EventHandler(this.button_Kontrolileri_MouseLeave);
+            this.button_Kontrolileri.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_Kontrolileri_MouseMove);
             // 
-            // button1
+            // button_KontrolOynat
             // 
-            this.button1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("button1.BackgroundImage")));
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.Transparent;
-            this.button1.Location = new System.Drawing.Point(73, 477);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 23);
-            this.button1.TabIndex = 1;
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_KontrolOynat.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.button_KontrolOynat.BackgroundImage = global::MediaPlayer.Properties.Resources.oynat;
+            this.button_KontrolOynat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_KontrolOynat.FlatAppearance.BorderSize = 0;
+            this.button_KontrolOynat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_KontrolOynat.ForeColor = System.Drawing.Color.Transparent;
+            this.button_KontrolOynat.Location = new System.Drawing.Point(112, 462);
+            this.button_KontrolOynat.Name = "button_KontrolOynat";
+            this.button_KontrolOynat.Size = new System.Drawing.Size(70, 40);
+            this.button_KontrolOynat.TabIndex = 8;
+            this.button_KontrolOynat.UseVisualStyleBackColor = true;
+            this.button_KontrolOynat.Click += new System.EventHandler(this.button_KontrolOynat_Click);
+            this.button_KontrolOynat.MouseLeave += new System.EventHandler(this.button_KontrolOynat_MouseLeave);
+            this.button_KontrolOynat.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolOynat_MouseMove);
             // 
             // tableLayoutPanel1
             // 
@@ -597,8 +691,8 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 466F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(950, 466);
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 450F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(950, 450);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // axWindowsMediaPlayer1
@@ -609,8 +703,10 @@
             this.axWindowsMediaPlayer1.Margin = new System.Windows.Forms.Padding(0);
             this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
             this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(950, 466);
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(950, 450);
             this.axWindowsMediaPlayer1.TabIndex = 0;
+            this.axWindowsMediaPlayer1.OpenStateChange += new AxWMPLib._WMPOCXEvents_OpenStateChangeEventHandler(this.axWindowsMediaPlayer1_OpenStateChange);
+            this.axWindowsMediaPlayer1.StatusChange += new System.EventHandler(this.axWindowsMediaPlayer1_StatusChange);
             this.axWindowsMediaPlayer1.PositionChange += new AxWMPLib._WMPOCXEvents_PositionChangeEventHandler(this.axWindowsMediaPlayer1_PositionChange);
             this.axWindowsMediaPlayer1.CurrentItemChange += new AxWMPLib._WMPOCXEvents_CurrentItemChangeEventHandler(this.axWindowsMediaPlayer1_CurrentItemChange);
             // 
@@ -656,6 +752,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).EndInit();
             this.ResumeLayout(false);
@@ -686,7 +783,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         public AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private System.Windows.Forms.OpenFileDialog openFileDialog_Dosya_Ekle;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog_Klasor_Ekle;
         private System.Windows.Forms.ListView listView_Album;
         private System.Windows.Forms.ColumnHeader column_AlbumListesi_Album;
         private System.Windows.Forms.ColumnHeader column_AlbumListesi_Sanatci;
@@ -698,11 +794,11 @@
         private System.Windows.Forms.ColumnHeader column_SanatciListesi_Sure;
         private System.Windows.Forms.ColumnHeader column_AlbumListesi_Dizin;
         private System.Windows.Forms.ColumnHeader column_SanatciListesi_Dizin;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button_KontrolGeri;
+        private System.Windows.Forms.Button button_Kontrolileri;
+        private System.Windows.Forms.Button button_KontrolOynat;
         private System.Windows.Forms.Label label_ParcaAdi;
-        private System.Windows.Forms.Label label_Sanatci;
+        private System.Windows.Forms.Label label_SanatciAdi;
         private System.Windows.Forms.Label label_Zaman;
         private System.Windows.Forms.ListView listView_Muzik;
         private System.Windows.Forms.ColumnHeader column_Muzik_Turu;
@@ -716,6 +812,13 @@
         private System.Windows.Forms.ColumnHeader column_Video_DosyaAdi;
         private System.Windows.Forms.ColumnHeader column_Video_Sure;
         private System.Windows.Forms.ColumnHeader column_Video_Konum;
+        private System.ComponentModel.BackgroundWorker backgroundWorker_ListeOlustur;
+        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog_KlasorEkle;
+        private System.Windows.Forms.ImageList ımageList_Muzik;
+        private System.Windows.Forms.ImageList ımageList_Video;
+        private System.Windows.Forms.Button button_KontrolDurdur;
+        private System.Windows.Forms.Button button_KontrolDur;
+        internal System.Windows.Forms.TrackBar trackBar1;
     }
 }
 

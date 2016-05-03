@@ -47,7 +47,6 @@ namespace MediaPlayer.ListelemeIslemleri
             table1.Columns.Add("Sanatci");
             table1.Columns.Add("Tur");
 
-
             table2.Columns.Add("DosyaAdi");
             table2.Columns.Add("Dizin");
             table2.Columns.Add("Sure");
@@ -87,11 +86,40 @@ namespace MediaPlayer.ListelemeIslemleri
             table1.Rows.Add(media.name, media.sourceURL, media.durationString, album, sanatci, tur);
         }
 
-        public void sil() //Tablo satırlarının heppsini siler.
+
+        public void sil(string tabloAdi="") //Tablo satırlarını siler.
         {
-            table1.Clear();
-            table2.Clear();
+                switch (tabloAdi)
+                {
+                    case "Bilgi":
+                    for (int i = 0; i < table1.Rows.Count; i++)
+                    {
+                        table1.Rows.RemoveAt(i);
+                    }
+                    table1.AcceptChanges();
+                    break;
+                    case "Sorgu":
+                    for (int i = 0; i < table2.Rows.Count; i++)
+                    {
+                        table2.Rows.RemoveAt(i);
+                    }
+                    table2.AcceptChanges();
+                        break;
+                    default:
+                    for (int i = 0; i < table1.Rows.Count; i++)
+                    {
+                        table1.Rows.RemoveAt(i);
+                    }
+                    table1.AcceptChanges();
+                    for (int i = 0; i < table2.Rows.Count; i++)
+                    {
+                        table2.Rows.RemoveAt(i);
+                    }
+                    table2.AcceptChanges();
+                    break;
+                }
         }
+
 
         public ListViewItem Bilgi(int siraNo, params string[] grup) //Medya bilgileri döndürülüyor.
         {
@@ -116,15 +144,17 @@ namespace MediaPlayer.ListelemeIslemleri
                 {
                     Item.SubItems.Add(grup[i]); //Eğer istenen bilgi tablolarda yok ise, istenen bilginin kendisi, Itemin sutununa değer olarak giriliyor.
                 }          
+                
             }
+
             return Item;
         }
 
 
-        public void Sorgu(params string[] turler) //Sorgulanacak dosya türleri.
-        {
-            
-            //Select için kullanılacak sorgu hazırlanıyor.
+
+        public void Sorgu(params string[] turler) //İstenen dosya türleri.
+        { 
+            /* Sorgu oluşturuluyor. */
             string srg = "Tur IN ('" + turler[0];
             for (int i = 1; i < turler.Length; i++)
             {
@@ -132,8 +162,9 @@ namespace MediaPlayer.ListelemeIslemleri
             }
             srg += "')";
 
-            DataRow[] dr = table1.Select(srg); //Sorgu sonucu DataRowa aktarılıyor.
+            DataRow[] dr = table1.Select(srg); //Sorgu sonucu DataRow dizinine aktarılıyor.
             
+            /*Dizindeki bilgiler tabloya aktarılıyor.*/
             for (int i = 0; i < dr.Length; i++)
             {
                 DataRow nr = table2.NewRow();
@@ -152,9 +183,46 @@ namespace MediaPlayer.ListelemeIslemleri
         {
             ListViewItem Items = new ListViewItem(); //Yeni listViewItem oluşturuluyor.
 
+            if (table2.Rows.Count>0)
+            {
                 try
                 {
-                    Items.Text = table2.Rows[siraNo][grup[0]].ToString(); //Yeni oluşturulan listViewItem ilk sutununa, DateTablodaki istenilen satır ve sütundaki bilgi giriliyor.
+
+                    //Items.Text = ""; //Items.Text = table2.Rows[siraNo][grup[0]].ToString(); //Yeni oluşturulan listViewItem ilk sutununa, DateTablodaki istenilen satır ve sütundaki bilgi giriliyor.
+                    //Items.ImageIndex = 1;
+                    
+                    switch (table2.Rows[siraNo]["Tur"].ToString())
+                    {
+                        case ".amr":
+                            Items.ImageKey = "amr.png";
+                            break;
+                        case ".mp3":
+                            Items.ImageKey = "mp3.png";
+                            break;
+                        case ".wav":
+                            Items.ImageKey = "wav.png";
+                            break;
+                        case ".wma":
+                            Items.ImageKey = "wma.png";
+                            break;
+                        case ".avi":
+                            Items.ImageKey = "avi.png";
+                            break;
+                        case ".mp4":
+                            Items.ImageKey = "mp4.png";
+                            break;
+                        case ".mpeg":
+                            Items.ImageKey = "mpeg.png";
+                            break;
+                        case ".mpg":
+                            Items.ImageKey = "mpg.png";
+                            break;
+                        case ".wmv":
+                            Items.ImageKey = "wmv.png";
+                            break;
+                        default:
+                            break;
+                    }
                 }
                 catch (Exception)
                 {
@@ -162,7 +230,7 @@ namespace MediaPlayer.ListelemeIslemleri
                     //Items.Text = grup[0];  //eğer istenen bilgi tablolarda yok ise, istenen bilginin kendisi ıtemin ilk değeri olarak giriliyor.
                 }
 
-                for (int i = 1; i < grup.Length; i++) // ıtemin sonraki sutunlarını doldurmak için döngüye giriliyor.
+                for (int i = 0; i < grup.Length; i++) // ıtemin sonraki sutunlarını doldurmak için döngüye giriliyor.
                 {
                     try
                     {
@@ -174,6 +242,32 @@ namespace MediaPlayer.ListelemeIslemleri
                     }
 
                 }
+            }
+            else
+            {
+                Items = null;
+            }
+
+
+            ///* Itemin içeriği kontrol ediliyor */
+            //bool it = false;
+            //foreach (ListViewItem.ListViewSubItem ic in Items.SubItems)
+            //{
+            //    if (ic.ToString() != "")
+            //    {
+            //        it = true;
+            //    }
+            //}
+            ///* Itemin içeriği boşsa null Item gönderiliyor. */
+            //if (it == true)
+            //{
+            //    return Items;
+            //}
+            //else
+            //{
+            //    Items.Remove();
+            //    return Items = null;
+            //}
             return Items;
         }
     }

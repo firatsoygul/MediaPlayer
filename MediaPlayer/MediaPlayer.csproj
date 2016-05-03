@@ -127,6 +127,30 @@
   <ItemGroup>
     <None Include="Resources\SanatciAP.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\durdur_ust.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\geri_ust.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ileri_ust.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oynat_ust.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\durdur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\oynat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dur.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\dur_ust.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
