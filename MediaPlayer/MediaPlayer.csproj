@@ -59,6 +59,12 @@
     <Compile Include="Playlist\Playlist.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Seslendirme\Seslendirme.cs" />
+    <Compile Include="Sesler.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Sesler.resx</DependentUpon>
+    </Compile>
     <Compile Include="Uyari\Uyari.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -69,6 +75,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sesler.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Sesler.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -150,6 +160,138 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\dur_ust.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a4.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a5.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a6.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\h1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\h2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\h3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\h4.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hk1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k4.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\k5.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m1_1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m1_2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m1_3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m4.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m5.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\m6.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\o1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\o2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\o3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u3.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u4.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u5.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u6.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u7.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u8.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u9.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u10.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u11.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u12.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u13.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u14.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u15.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u16.mp3" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

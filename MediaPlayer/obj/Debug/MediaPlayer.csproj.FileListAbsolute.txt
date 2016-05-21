@@ -12,3 +12,4 @@ D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\AxInterop.WMPLib.dll
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.ResolveComReference.cache
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\Interop.WMPLib.dll
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\AxInterop.WMPLib.dll
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.Sesler.resources

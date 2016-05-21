@@ -10,6 +10,8 @@ namespace MediaPlayer.Uyari
 
     #region MPUyari
 
+    /// <summary>Form içinde en önde açılan panel içinde uyarı metinlerini gösterir.
+    /// </summary>
     class MPUyari : Panel
     {
         Form1 frm1 = (Form1)Application.OpenForms["Form1"];
@@ -23,8 +25,6 @@ namespace MediaPlayer.Uyari
 
         public MPUyari()
         {
-
-
             // panel_Uyari
 
             this.Controls.Add(lbl_Ayrinti);
@@ -60,7 +60,13 @@ namespace MediaPlayer.Uyari
             lbl_Ayrinti.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom )));
         }
 
-        // Sırasıyla, Uyarı panelinin türü (Uyarı, Hata veya Onay olabilir), Uyarı ayrıntısı ve Uyarı başlığı.
+        /// <summary>
+        /// Sırasıyla, Uyarı panelinin türü (Uyarı, Hata veya Onay olabilir), Uyarı ayrıntısı ve Uyarı başlığı.
+        /// </summary>
+        /// <param name="uyari_turu">Hata, Uyari, Onay</param>
+        /// <param name="uyari_ayrintisi">Açıklama yazısı.</param>
+        /// <param name="uyari_basligi">Yazılmazsa uyarı türü başlık olarak yazılır.</param>
+        /// <param name="uyari_suresi">Ne kadar ekranda kalacağı ms. olarak.</param>
         public void Goster(string uyari_turu="", string uyari_ayrintisi="", string uyari_basligi = "", int uyari_suresi=4000)
         {
 

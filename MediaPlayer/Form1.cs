@@ -10,9 +10,13 @@ using System.Windows.Forms;
 using MediaPlayer.ListelemeIslemleri;
 using MediaPlayer.Playlist;
 using MediaPlayer.Uyari;
+using MediaPlayer.Seslendirme;
 using System.IO;
 using WMPLib;
 using System.Threading;
+using System.Resources;
+using System.Globalization;
+using System.Collections;
 
 namespace MediaPlayer
 {
@@ -25,6 +29,33 @@ namespace MediaPlayer
             InitializeComponent();
             CheckForIllegalCrossThreadCalls = false; //Multi-Thread engeli kaldırılıyor.
         }
+
+        bool seslendirmeBaslikAcikmi=true, seslendirmeAciklamaAcikmi=true, seslendirmeUyariveHataAcikmi=true; //Seslendirmelerin açık-kapalı durumunu tutan değişkenler.
+        int seslendirmeBaslikSesi=100, seslendirmeAciklamaSesi=100, seslendirmeUyariveHataSesi=100;
+        AbortableBackgroundWorker backgroundWorker_Seslendirme2 = new AbortableBackgroundWorker();
+        
+
+        #region Form Load
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.uiMode = "none";
+            backgroundWorker_UyariSesleriOlustur.RunWorkerAsync();
+            backgroundWorker_Seslendirme2.DoWork += BackgroundWorker_Seslendirme2_DoWork;
+            backgroundWorker_Seslendirme2.WorkerSupportsCancellation = true;
+            checkBox_BaslikSesleri.Checked = seslendirmeBaslikAcikmi;
+            checkBox_AciklamaSesleri.Checked = seslendirmeAciklamaAcikmi;
+            checkBox_UyariveHataSesleri.Checked = seslendirmeUyariveHataAcikmi;
+            trackBar_Oynat.MinimumSize = new System.Drawing.Size(950, 25);
+        }
+
+        private void BackgroundWorker_Seslendirme2_DoWork(object sender, DoWorkEventArgs e)
+        {
+            Seslendir s = new Seslendir();
+            string d = (string)e.Argument;
+            s.sesOynat(d, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeUyariveHataAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi, seslendirmeUyariveHataSesi);
+        }
+        #endregion Form Load
+
         #region Dosya Ekle
         private void mpButon_Dosya_Ekle_Click(object sender, EventArgs e)
         {
@@ -129,11 +160,12 @@ namespace MediaPlayer
             lg_v.sil(); //Bütün tablolar boşaltılıyor.
         }
         #endregion Listeleri Oluştur
+
         public IWMPPlaylist tumListe;
+
         #region Tüm Liste Çift Tıklama
         private void listView_Tum_Liste_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-
             tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Tüm Liste"); //Yeni playlist oluşturuluyor.
             axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
 
@@ -201,13 +233,7 @@ namespace MediaPlayer
             //kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
         }
         #endregion Sanatçı Listesi Çift Tıklama
-        #region Form Load
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            axWindowsMediaPlayer1.uiMode = "none";
 
-        }
-        #endregion Form Load
         #region Sil Buton Tıklama
         private void mpButon_Sil_Click(object sender, EventArgs e)
         {
@@ -225,7 +251,7 @@ namespace MediaPlayer
             label_Zaman.Text = i.ToString();
         }
         #endregion axMediaPlayer Medya Akış değişimi
-
+        #region BackGroundWorker Liste Oluştur
         private void backgroundWorker_ListeOlustur_DoWork(object sender, DoWorkEventArgs e)
         {
             ListeleriOlustur();
@@ -244,7 +270,7 @@ namespace MediaPlayer
                 dosyaHatasi = 0;
             }
         }
-
+        #endregion BackGroundWorker Liste Oluştur
         #region Kontrol butonları resimleri
 
         private void button_KontrolGeri_MouseMove(object sender, MouseEventArgs e)
@@ -349,14 +375,8 @@ namespace MediaPlayer
 
         private void axWindowsMediaPlayer1_OpenStateChange(object sender, AxWMPLib._WMPOCXEvents_OpenStateChangeEvent e)
         {
-            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
-            {
-                //Thread.Sleep(1000);
-                
-                label_Zaman.Text = axWindowsMediaPlayer1.currentMedia.durationString;
-            }
-            int i = 1;
-            label_Zaman.Text = i++.ToString();
+            //label_Zaman.Text = axWindowsMediaPlayer1.Ctlcontrols.currentPositionString;
+
         }
 
 
@@ -368,6 +388,154 @@ namespace MediaPlayer
         private void Durdur(object sender, EventArgs e)
         {
 
+        }
+        #region Uyarı Seslerini Dışa Aktar
+        private void mp3DosyalariDisaAktar()
+        {
+            //WindowsMediaPlayer wmp = new WindowsMediaPlayer();
+            ResourceSet resourceSet = MediaPlayer.Sesler.ResourceManager.GetResourceSet(CultureInfo.CurrentUICulture, true, true);
+            string sesDizini = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData) + "\\MediaPlayer\\Ses";
+
+            try
+            {
+                if (!Directory.Exists(sesDizini))
+                {
+                    Directory.CreateDirectory(sesDizini);
+                }
+                foreach (DictionaryEntry entry in resourceSet)
+                {
+                    if (!System.IO.File.Exists(sesDizini + "\\" + entry.Key.ToString() + ".mp3"))
+                    {
+                        File.WriteAllBytes(sesDizini + "\\" + entry.Key.ToString() + ".mp3", (byte[])entry.Value);
+                    }
+                }
+            }
+            catch (Exception)
+            {
+            }
+            //wmp.URL = sesDizini + "\\a1.mp3";
+        }
+        #endregion Uyarı Seslerini Dışa Aktar
+        #region BackGroundWorker Uyarı Seslerini Dışa Aktar
+        private void backgroundWorker_UyariSesleriOlustur_DoWork(object sender, DoWorkEventArgs e)
+        {
+            mp3DosyalariDisaAktar();
+        }
+        #endregion BackGroundWorker Uyarı Seslerini Dışa Aktar
+
+        private void mpTabControl_Ana_Menu_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //backgroundWorker_Seslendirme2.RunWorkerAsync(mpTabControl_Ana_Menu.SelectedTab.Name);
+            //if (backgroundWorker_Seslendirme2.IsBusy == true)
+            //{
+            //    backgroundWorker_Seslendirme2.Abort();
+            //    backgroundWorker_Seslendirme2.Dispose();
+            //}
+            //backgroundWorker_Seslendirme.CancelAsync();
+
+            s.sesOynat(mpTabControl_Ana_Menu.SelectedTab.Name, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeUyariveHataAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi, seslendirmeUyariveHataSesi);
+        }
+
+        private void checkBox_BaslikSesleri_CheckedChanged(object sender, EventArgs e)
+        {
+            seslendirmeBaslikAcikmi = checkBox_BaslikSesleri.Checked;
+        }
+
+        private void trackBar_SeslendirmeBaslik_Scroll(object sender, EventArgs e)
+        {
+            seslendirmeBaslikSesi = trackBar_SeslendirmeBaslik.Value;
+        }
+
+        private void trackBar_SeslendirmeAciklama_Scroll(object sender, EventArgs e)
+        {
+            seslendirmeAciklamaSesi = trackBar_SeslendirmeAciklama.Value;
+        }
+
+        private void trackBar_SeslendirmeUyariveHata_Scroll(object sender, EventArgs e)
+        {
+            seslendirmeUyariveHataSesi = trackBar_SeslendirmeUyariveHata.Value;
+        }
+
+        private void axWindowsMediaPlayer1_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
+        {
+
+            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                trackBar_Oynat.Maximum = (int)axWindowsMediaPlayer1.Ctlcontrols.currentItem.duration;
+                timer_OynatmaZamani.Start();
+            }
+            else if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPaused)
+            {
+                timer_OynatmaZamani.Stop();
+            }
+            else if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsStopped)
+            {
+                timer_OynatmaZamani.Stop();
+                trackBar_Oynat.Value = 0;
+            }
+
+        }
+
+        private void timer_OynatmaZamani_Tick(object sender, EventArgs e)
+        {
+            if (axWindowsMediaPlayer1.playState == WMPLib.WMPPlayState.wmppsPlaying)
+            {
+                trackBar_Oynat.Value = (int)axWindowsMediaPlayer1.Ctlcontrols.currentPosition;
+                if (zamanGosterimModeli==0)
+                {
+                    label_Zaman.Text = axWindowsMediaPlayer1.Ctlcontrols.currentPositionString;
+                }
+                else if (zamanGosterimModeli==1)
+                {
+                    label_Zaman.Text = Math.Floor(axWindowsMediaPlayer1.currentMedia.duration - axWindowsMediaPlayer1.Ctlcontrols.currentPosition).ToString();
+                }
+                else if (zamanGosterimModeli==2)
+                {
+
+                }
+                
+            }
+        }
+
+        private void trackBar_Oynat_Scroll(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.Ctlcontrols.pause();
+            axWindowsMediaPlayer1.Ctlcontrols.currentPosition = trackBar_Oynat.Value;
+            label_Zaman.Text = axWindowsMediaPlayer1.Ctlcontrols.currentPositionString;
+            //label_Zaman.Text = TimeSpan.FromMilliseconds(trackBar_Oynat.Value).ToString(@"hh\:mm\:ss");
+            Thread.Sleep(700);
+            axWindowsMediaPlayer1.Ctlcontrols.play();
+        }
+
+        int zamanGosterimModeli;
+        private void label_Zaman_Click(object sender, EventArgs e)
+        {
+            if (zamanGosterimModeli <= 2)
+            {
+                zamanGosterimModeli += 1;
+            }
+            else
+            {
+                zamanGosterimModeli = 0;
+            }
+        }
+
+        private void checkBox_AciklamaSesleri_CheckedChanged(object sender, EventArgs e)
+        {
+            seslendirmeAciklamaAcikmi = checkBox_AciklamaSesleri.Checked;
+        }
+
+        private void checkBox_UyariveHataSesleri_CheckedChanged(object sender, EventArgs e)
+        {
+            seslendirmeUyariveHataAcikmi = checkBox_UyariveHataSesleri.Checked;
+        }
+
+        Seslendir s = new Seslendir();
+        private void backgroundWorker_Seslendirme_DoWork(object sender, DoWorkEventArgs e)
+        {
+            
+            string d = (string)e.Argument;
+            s.sesOynat(d, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeUyariveHataAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi, seslendirmeUyariveHataSesi);
         }
     }
 }
