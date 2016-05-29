@@ -30,9 +30,9 @@ namespace MediaPlayer.Uyari
             this.Controls.Add(lbl_Ayrinti);
             this.Controls.Add(lbl_Baslik);
             //this.Controls.Add(tm);
-            this.Location = new System.Drawing.Point(-10, 412);
+            this.Location = new System.Drawing.Point(-1, Convert.ToInt16(frm1.Height * 0.65));
             this.Name = "panel_Uyari";
-            this.Size = new System.Drawing.Size(982, 107);
+            this.Size = new System.Drawing.Size(frm1.Width, 107);
             this.TabIndex = 1;
             this.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 

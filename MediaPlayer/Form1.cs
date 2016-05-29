@@ -19,6 +19,7 @@ using System.Resources;
 using System.Globalization;
 using System.Collections;
 using System.Speech.Synthesis;
+using MediaPlayer.DizinYoneticisi;
 
 namespace MediaPlayer
 {
@@ -34,12 +35,12 @@ namespace MediaPlayer
             CheckForIllegalCrossThreadCalls = false; //Multi-Thread engeli kaldırılıyor.
         }
         //ses.SpeakAsyncCancelAll();
-        public bool seslendirmeBaslikAcikmi=true, seslendirmeAciklamaAcikmi=true, seslendirmeUyariveHataAcikmi=true; //Seslendirmelerin açık-kapalı durumunu tutan değişkenler.
-
-        public int seslendirmeBaslikSesi=100, seslendirmeAciklamaSesi=100, seslendirmeUyariveHataSesi=100;
+        public bool seslendirmeBaslikAcikmi=true, seslendirmeAciklamaAcikmi=true, seslendirmeUyariveHataAcikmi=true, seslendirmeKonusmaSesiAcikmi=true; //Seslendirmelerin açık-kapalı durumunu tutan değişkenler.
+        public string sonAcilanDizin = string.Empty; // En son dosya yüklenen dizini tutuyor.
+        public int seslendirmeBaslikSesi=100, seslendirmeAciklamaSesi=100, seslendirmeUyariveHataSesi=100, seslendirmeKonusmaSesi=100;
         public Seslendirme.Uyari SesliUyari = new Seslendirme.Uyari();
         bool backgroundCompletedEventCancel = true; // İş parçacığının tamamlandığında yapılacakları tutan eventi iptal eden değişken.
-        SpeechSynthesizer ses = new SpeechSynthesizer();
+        public SpeechSynthesizer ses = new SpeechSynthesizer();
         #region Form Load
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -51,9 +52,11 @@ namespace MediaPlayer
             trackBar_SeslendirmeBaslik.Value = seslendirmeBaslikSesi;
             trackBar_SeslendirmeAciklama.Value = seslendirmeAciklamaSesi;
             trackBar_SeslendirmeUyariveHata.Value = seslendirmeUyariveHataSesi;
+            trackBar_konusma.Value = seslendirmeKonusmaSesi;
             checkBox_BaslikSesleri.Checked = seslendirmeBaslikAcikmi;
             checkBox_AciklamaSesleri.Checked = seslendirmeAciklamaAcikmi;
             checkBox_UyariveHataSesleri.Checked = seslendirmeUyariveHataAcikmi;
+            checkBox_OkumaSesleri.Checked = seslendirmeKonusmaSesiAcikmi;
             seslendir.Durdur();
 
 
@@ -95,52 +98,132 @@ namespace MediaPlayer
         #region Dosya Ekle
         private void mpButon_Dosya_Ekle_Click(object sender, EventArgs e)
         {
+            DosyaYonetici dsY = new DosyaYonetici();
+            dsY.ShowDialog();
+        }
+
+        public void dosyaEkle(ArrayList gelendosyalar)
+        {
             MPUyari uyari = new MPUyari();// Uyarı nesnesi oluşturuluyor.
-            if (openFileDialog_Dosya_Ekle.ShowDialog() == System.Windows.Forms.DialogResult.OK)//Ok tuşuna basıldıysa...
+
+            foreach (string dosya in gelendosyalar)//Seçilen dosya kadar döngüye giriliyor.
             {
-                foreach (var dosya in openFileDialog_Dosya_Ekle.FileNames)//Seçilen dosya kadar döngüye giriliyor.
+                string dosyaD = dosya.Replace("\\\\", "\\");
+                /* Desteklenmeyen dosyalar kontrol ediliyor. */
+                if (Path.GetExtension(dosyaD) == ".amr" || Path.GetExtension(dosyaD) == ".mp3" || Path.GetExtension(dosyaD) == ".wma" || Path.GetExtension(dosyaD) == ".wav" || Path.GetExtension(dosyaD) == ".avi" || Path.GetExtension(dosyaD) == ".mp4" || Path.GetExtension(dosyaD) == ".mpg" || Path.GetExtension(dosyaD) == ".mpeg" || Path.GetExtension(dosyaD) == ".wmv")
                 {
                     Listele Item = new Listele(); // Yeni ListView Itemi oluşturuluyor.
-                    listView_Tum_Liste.Items.Add(Item.klasorden_Listele(listView_Tum_Liste.Items.Count, dosya)); //Oluşturulan Item tüm liste listViewine ekleniyor.
+                    listView_Tum_Liste.Items.Add(Item.klasorden_Listele(listView_Tum_Liste.Items.Count, dosyaD)); //Oluşturulan Item tüm liste listViewine ekleniyor.
+                    dosyaEklendi += 1; //Eklenen dosya miktarı.
                 }
-
-                uyari.Goster("Uyari", "Seçilen Dosyalar Listelere Ekleniyor...", "Dosyalar Ekleniyor...");
-                backgroundWorker_ListeOlustur.RunWorkerAsync();//Listeler Oluşturuluyor.
+                else
+                {
+                    dosyaHatasi += 1; // Desteklenmeyen dosya varsa sayısı alınıyor.
+                }
             }
+
+            uyari.Goster("Uyari", "Seçilen Dosyalar Listelere Ekleniyor...", "Dosyalar Ekleniyor...");
+            backgroundWorker_ListeOlustur.RunWorkerAsync();//Listeler Oluşturuluyor.
+
         }
+
         #endregion Dosya Ekle
         #region Klasör Ekle
         int dosyaHatasi = 0;//Eklenen dosyaların türleri uygun değilse miktarı alınıyor.
+        int dosyaEklendi = 0; //Her defasında eklenen dosya sayısı.
+
         private void mpButon_Klasor_Ekle_Click(object sender, EventArgs e)
+        {
+            DizinYonetici dy = new DizinYonetici();
+            dy.ShowDialog();
+
+        }
+
+        public void dizinEkle(string dizin)
         {
             MPUyari uyari = new MPUyari();// Uyarı nesnesi oluşturuluyor.
             seslendir.Durdur();
             SesliUyari.Oynat(3, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
 
-            if (folderBrowserDialog_KlasorEkle.ShowDialog() == System.Windows.Forms.DialogResult.OK)//Ok tuşuna basıldıysa...
+            foreach (var dosya in Directory.GetFiles(dizin))//Seçilen dosya kadar döngüye giriliyor.
             {
-                
-                foreach (var dosya in Directory.GetFiles(folderBrowserDialog_KlasorEkle.SelectedPath))//Seçilen dosya kadar döngüye giriliyor.
+                /* Desteklenmeyen dosyalar kontrol ediliyor. */
+                if (Path.GetExtension(dosya) == ".amr" || Path.GetExtension(dosya) == ".mp3" || Path.GetExtension(dosya) == ".wma" || Path.GetExtension(dosya) == ".wav" || Path.GetExtension(dosya) == ".avi" || Path.GetExtension(dosya) == ".mp4" || Path.GetExtension(dosya) == ".mpg" || Path.GetExtension(dosya) == ".mpeg" || Path.GetExtension(dosya) == ".wmv")
                 {
-                    /* Desteklenmeyen dosyalar kontrol ediliyor. */
-                    if (Path.GetExtension(dosya) == ".amr" || Path.GetExtension(dosya) == ".mp3" || Path.GetExtension(dosya) == ".wma" || Path.GetExtension(dosya) == ".wav" || Path.GetExtension(dosya) == ".avi" || Path.GetExtension(dosya) == ".mp4" || Path.GetExtension(dosya) == ".mpg" || Path.GetExtension(dosya) == ".mpeg" || Path.GetExtension(dosya) == ".wmv")
-                    {
-                        Listele Item = new Listele();// Yeni ListView Itemi oluşturuluyor.
-                        listView_Tum_Liste.Items.Add(Item.klasorden_Listele(listView_Tum_Liste.Items.Count, dosya)); //Oluşturulan Item tüm liste listViewine ekleniyor.
-                    }
-                    else
-                    {
-                        dosyaHatasi += 1; // Desteklenmeyen dosya varsa sayısı alınıyor.
-                    }
+                    Listele Item = new Listele();// Yeni ListView Itemi oluşturuluyor.
+                    listView_Tum_Liste.Items.Add(Item.klasorden_Listele(listView_Tum_Liste.Items.Count, dosya)); //Oluşturulan Item tüm liste listViewine ekleniyor.
+                    dosyaEklendi += 1;
                 }
-
-                uyari.Goster("Uyari", "Seçilen Dosyalar Listelere Ekleniyor...", "Dosyalar Ekleniyor...");
-                SesliUyari.Oynat(16, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
-                backgroundWorker_ListeOlustur.RunWorkerAsync();//Listeler Oluşturuluyor.
+                else
+                {
+                    dosyaHatasi += 1; // Desteklenmeyen dosya varsa sayısı alınıyor.
+                }
             }
+
+            uyari.Goster("Uyari", "Seçilen Dosyalar Listelere Ekleniyor...", "Dosyalar Ekleniyor...");
+            SesliUyari.Oynat(16, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
+            backgroundWorker_ListeOlustur.RunWorkerAsync();//Listeler Oluşturuluyor.
 
         }
         #endregion Klasör Ekle
+        
+
+        #region BackGroundWorker Liste Oluştur
+        private void backgroundWorker_ListeOlustur_DoWork(object sender, DoWorkEventArgs e)
+        {
+            ListeleriOlustur();
+        }
+
+        private void backgroundWorker_ListeOlustur_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (backgroundCompletedEventCancel == true)
+            {
+                MPUyari uyari = new MPUyari();
+                if (dosyaHatasi == 0) //Desteklenmeyen dosya yok ise,
+                {
+                    if (dosyaEklendi > 0)//Eklenen dosya varsa...
+                    {
+                        uyari.Goster("Onay", "Seçilen dosyalar listelere eklendi.", "DOSYALAR EKLENDİ");
+                        SesliUyari.Oynat(17, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
+                        dosyaEklendi = 0;
+                    }
+                    else // Eklenen dosya yoksa...
+                    {
+                        uyari.Goster("Uyari", "Hiç bir dosya bulunamadı.", "DOSYA BULUNAMADI");
+                        //SesliUyari.Oynat(19, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
+                    }
+                }
+                else //Desteklenmeyen dosya varsa
+                {
+                    uyari.Goster("Uyari", "Desteklenmeyen bazı (" + dosyaHatasi.ToString() + ") dosyalar listeye eklenemedi.", "UYARI");
+                    dosyaHatasi = 0;
+                    SesliUyari.Oynat(18, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
+                }
+            }
+            else
+            {
+                backgroundCompletedEventCancel = true;
+            }
+            
+        }
+        #endregion BackGroundWorker Liste Oluştur
+
+        public IWMPPlaylist tumListe;
+
+       
+        #region Kontrol labelleri sanatçı ve şarkı ismi
+
+        private void kontolEtiketleriniAyarla()
+        {
+            button_KontrolOynat.Visible = false;
+            button_KontrolDurdur.Visible = true;
+            label_SanatciAdi.Text = axWindowsMediaPlayer1.currentMedia.getItemInfo("Title").ToString();
+            label_ParcaAdi.Text = axWindowsMediaPlayer1.currentMedia.name;
+            trackBar_Oynat.Maximum = Convert.ToInt16(axWindowsMediaPlayer1.currentMedia.duration);
+        }
+
+        #endregion Kontrol labelleri sanatçı ve şarkı ismi
+
         #region Listeleri Oluştur
         public void ListeleriOlustur()
         {
@@ -198,42 +281,9 @@ namespace MediaPlayer
             //lg_v.deneme();
         }
         #endregion Listeleri Oluştur
+        #region Listeden Oynat
 
-        #region BackGroundWorker Liste Oluştur
-        private void backgroundWorker_ListeOlustur_DoWork(object sender, DoWorkEventArgs e)
-        {
-            ListeleriOlustur();
-        }
-
-        private void backgroundWorker_ListeOlustur_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (backgroundCompletedEventCancel == true)
-            {
-                MPUyari uyari = new MPUyari();
-                if (dosyaHatasi == 0) //Desteklenmeyen dosya yok ise,
-                {
-                    uyari.Goster("Onay", "Seçilen dosyalar listelere eklendi.", "DOSYALAR EKLENDİ");
-                    SesliUyari.Oynat(17, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
-                }
-                else //Desteklenmeyen dosya varsa
-                {
-                    uyari.Goster("Uyari", "Desteklenmeyen bazı (" + dosyaHatasi.ToString() + ") dosyalar listeye eklenemedi.", "UYARI");
-                    dosyaHatasi = 0;
-                    SesliUyari.Oynat(18, seslendirmeUyariveHataAcikmi, seslendirmeUyariveHataSesi);
-                }
-            }
-            else
-            {
-                backgroundCompletedEventCancel = true;
-            }
-            
-        }
-        #endregion BackGroundWorker Liste Oluştur
-
-        public IWMPPlaylist tumListe;
-
-        #region Tüm Liste Çift Tıklama
-        private void listView_Tum_Liste_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void tumListedenEnter()
         {
             tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Tüm Liste"); //Yeni playlist oluşturuluyor.
             axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
@@ -253,9 +303,6 @@ namespace MediaPlayer
             mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
             kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
         }
-        #endregion Tüm Liste Çift Tıklama
-
-        #region Listeden Oynat
 
         private void listedenOynat(ListView liste, int dizinhangiSutunda, int secilenSatir)
         {
@@ -280,65 +327,106 @@ namespace MediaPlayer
             catch (Exception)
             {
             }
-
-
-            
         }
 
         #endregion Listeden Oynat
-
-        
-        #region Kontrol labelleri sanatçı ve şarkı ismi
-
-        private void kontolEtiketleriniAyarla()
+        #region Listeden Sil
+        private void tumListesindenSil() // Tum Listesinden gerekli satırı silip, sonraki seçilecek satırı belirler.
         {
-            button_KontrolOynat.Visible = false;
-            button_KontrolDurdur.Visible = true;
-            label_SanatciAdi.Text = axWindowsMediaPlayer1.currentMedia.getItemInfo("Title").ToString();
-            label_ParcaAdi.Text = axWindowsMediaPlayer1.currentMedia.name;
-            trackBar_Oynat.Maximum = Convert.ToInt16(axWindowsMediaPlayer1.currentMedia.duration);
+            if (listView_Tum_Liste.Items.Count > 0 && listView_Tum_Liste.SelectedItems.Count > 0) // Listede yüklü item varsa...
+            {
+                int si = listView_Tum_Liste.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
+                listView_Tum_Liste.SelectedItems[0].Remove(); // Seçili item siliniyor.
+
+                List<ListViewItem> itemList = new List<ListViewItem>();
+                int sonSiraNo = -1;
+                foreach (ListViewItem dosyaYolu in listView_Tum_Liste.Items)//Seçilen dosya kadar döngüye giriliyor.
+                {
+                    Listele Item = new Listele();// Yeni ListView Itemi oluşturuluyor.
+                    itemList.Add(Item.klasorden_Listele(sonSiraNo += 1, dosyaYolu.SubItems[3].Text)); //ilksıradaki itemitem listineekleniyor.
+                    listView_Tum_Liste.Items.Remove(dosyaYolu); // Okunan satırsiliniyor.
+                }
+
+                listView_Tum_Liste.Items.AddRange(itemList.ToArray()); //Oluşturulan Item listesi tüm liste listViewine ekleniyor.
+                                                                       //backgroundCompletedEventCancel = false; // Uyarılar gösterilmesin
+                                                                       //backgroundWorker_ListeOlustur.RunWorkerAsync();//Listeler Oluşturuluyor.
+                if (listView_Tum_Liste.Items.Count == 0) // Listede item kalmadıysa..
+                {
+                    //Birşey yapma.
+                }
+                else if (listView_Tum_Liste.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
+                {
+                    //listView_Tum_Liste.Sorting = SortOrder.Ascending;
+                    //listView_Tum_Liste.Sort();
+                    listView_Tum_Liste.Focus();
+                    listView_Tum_Liste.Select();
+                    listView_Tum_Liste.Items[si - 1].Focused = true;
+                    listView_Tum_Liste.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
+                }
+                else if (listView_Tum_Liste.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
+                {
+                    //listView_Tum_Liste.Sorting = SortOrder.Ascending;
+                    //listView_Tum_Liste.Sort();
+                    listView_Tum_Liste.Focus();
+                    listView_Tum_Liste.Select();
+                    listView_Tum_Liste.Items[si].Focused = true;
+                    listView_Tum_Liste.Items[si].Selected = true; // Bir önceki itemi seç.
+                }
+            }
         }
 
-        #endregion Kontrol labelleri sanatçı ve şarkı ismi
-
+        
+        #endregion Listeden Sil
         #region Listeler Çift Tıklama Olayı
+        #region Tüm Liste Çift Tıklama
+        private void listView_Tum_Liste_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            tumListedenEnter();
+        }
+        #endregion Tüm Liste Çift Tıklama
+        
         #region Albüm Listesi Çift Tıklama
         private void listView_Album_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Albüm Listesi"); //Yeni playlist oluşturuluyor.
-            axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
+            listedenOynat(listView_Album, 4, listView_Album.SelectedItems[0].Index);
+            //tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Albüm Listesi"); //Yeni playlist oluşturuluyor.
+            //axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
 
-            foreach (ListViewItem pl in listView_Album.Items) //Albüm listesinin olduğu listview satır sayısı kadar döngüye giriliyor.
-            {
-                IWMPMedia media = axWindowsMediaPlayer1.newMedia(pl.SubItems[4].Text); //Yeni media nesnesi oluşturuluyor ve listview.itemin ilgili sütunundan url alınıyor.
-                tumListe.appendItem(media); //Oluşturulan medya "Tüm Listeye" ekleniyor.
-            }
+            //foreach (ListViewItem pl in listView_Album.Items) //Albüm listesinin olduğu listview satır sayısı kadar döngüye giriliyor.
+            //{
+            //    IWMPMedia media = axWindowsMediaPlayer1.newMedia(pl.SubItems[4].Text); //Yeni media nesnesi oluşturuluyor ve listview.itemin ilgili sütunundan url alınıyor.
+            //    tumListe.appendItem(media); //Oluşturulan medya "Tüm Listeye" ekleniyor.
+            //}
 
-            int sn = listView_Album.SelectedItems[0].Index; // Tıklanan parçanın numarası tutuluyor, oynatmaya bu parçadan başlanacak.
-            axWindowsMediaPlayer1.currentPlaylist = tumListe; //"Albüm listesi" mediaPlayera ekleniyor.
-            axWindowsMediaPlayer1.Ctlcontrols.playItem(axWindowsMediaPlayer1.currentPlaylist.get_Item(sn));// Oynat
-            mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
-            kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
+            //int sn = listView_Album.SelectedItems[0].Index; // Tıklanan parçanın numarası tutuluyor, oynatmaya bu parçadan başlanacak.
+            //axWindowsMediaPlayer1.currentPlaylist = tumListe; //"Albüm listesi" mediaPlayera ekleniyor.
+            //axWindowsMediaPlayer1.Ctlcontrols.playItem(axWindowsMediaPlayer1.currentPlaylist.get_Item(sn));// Oynat
+            //mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
+            //kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
         }
         #endregion Albüm Listesi Çift Tıklama
+        
         #region Sanatçı Listesi Çift Tıklama
         private void listView_Sanatci_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            axWindowsMediaPlayer1.Ctlcontrols.stop();
-            ListView_to_Playlist pl = new ListView_to_Playlist(listView_Sanatci, 3, "Sanatçı Listesi", listView_Sanatci.SelectedItems[0].Index); //Yeni playlist oluşturuluyor.
-            axWindowsMediaPlayer1.currentPlaylist = pl.Playlist(); //"Playlist" mediaPlayera ekleniyor.
-            axWindowsMediaPlayer1.Ctlcontrols.playItem(axWindowsMediaPlayer1.currentPlaylist.get_Item(pl.Secilen()));// Oynat
-            //pl.sil(); //Playlist siliniyor.
-            mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
-            //kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
+            listedenOynat(listView_Sanatci, 3, listView_Sanatci.SelectedItems[0].Index);
+            //axWindowsMediaPlayer1.Ctlcontrols.stop();
+            //ListView_to_Playlist pl = new ListView_to_Playlist(listView_Sanatci, 3, "Sanatçı Listesi", listView_Sanatci.SelectedItems[0].Index); //Yeni playlist oluşturuluyor.
+            //axWindowsMediaPlayer1.currentPlaylist = pl.Playlist(); //"Playlist" mediaPlayera ekleniyor.
+            //axWindowsMediaPlayer1.Ctlcontrols.playItem(axWindowsMediaPlayer1.currentPlaylist.get_Item(pl.Secilen()));// Oynat
+            ////pl.sil(); //Playlist siliniyor.
+            //mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
+            ////kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
         }
         #endregion Sanatçı Listesi Çift Tıklama
+        
         #region Müzik Listesi Çift Tıklama
         private void listView_Muzik_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             listedenOynat(listView_Muzik, 5, listView_Muzik.SelectedItems[0].Index);
         }
         #endregion Müzik Listesi Çift Tıklama
+        
         #region Video Listesi Çift Tıklama
         private void listView_Video_MouseDoubleClick(object sender, MouseEventArgs e)
         {
@@ -346,13 +434,200 @@ namespace MediaPlayer
         }
         #endregion Video Listesi Çift Tıklama
         #endregion Listeler Çift Tıklama Olayı
+        #region Listeler KeyDown
+        private void listView_Tum_Liste_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (listView_Tum_Liste.Items.Count > 0 && listView_Tum_Liste.SelectedItems.Count > 0) // Listede yüklü item varsa...
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Delete:
+                        tumListesindenSil();
+                        break;
+                    case Keys.Enter:
+                        tumListedenEnter();
+                        break;
+                    case Keys.Space:
+                        tumListedenEnter();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
 
-        #region Sil Buton Tıklama
+        private void listView_Album_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (listView_Album.Items.Count > 0 && listView_Album.SelectedItems.Count > 0) // Listede yüklü item varsa...
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Delete:
+                        listView_Album.SelectedItems[0].Remove();
+                        break;
+                    case Keys.Enter:
+                        listedenOynat(listView_Album, 4, listView_Album.SelectedItems[0].Index);
+                        break;
+                    case Keys.Space:
+                        listedenOynat(listView_Album, 4, listView_Album.SelectedItems[0].Index);
+                        break;
+                    default:
+                        break;
+                }
+
+                int si = listView_Album.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
+
+                //if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
+                //{
+                //    listView_Album.SelectedItems[0].Remove(); // Seçili item siliniyor.
+                //}
+
+                if (listView_Album.Items.Count == 0) // Listede item kalmadıysa..
+                {
+                    //Birşey yapma.
+                }
+                else if (listView_Album.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
+                {
+                    listView_Album.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
+                }
+                else if (listView_Album.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
+                {
+                    listView_Album.Items[si].Selected = true; // Bir önceki itemi seç.
+                }
+            }
+        }
+
+        private void listView_Sanatci_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (listView_Sanatci.Items.Count > 0 && listView_Sanatci.SelectedItems.Count > 0) // Listede yüklü item varsa...
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Delete:
+                        listView_Sanatci.SelectedItems[0].Remove();
+                        break;
+                    case Keys.Enter:
+                        listedenOynat(listView_Sanatci, 3, listView_Sanatci.SelectedItems[0].Index);
+                        break;
+                    case Keys.Space:
+                        listedenOynat(listView_Sanatci, 3, listView_Sanatci.SelectedItems[0].Index);
+                        break;
+                    default:
+                        break;
+                }
+
+                int si = listView_Sanatci.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
+
+                //if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
+                //{
+                //    listView_Sanatci.SelectedItems[0].Remove(); // Seçili item siliniyor.
+                //}
+
+                if (listView_Sanatci.Items.Count == 0) // Listede item kalmadıysa..
+                {
+                    //Birşey yapma.
+                }
+                else if (listView_Sanatci.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
+                {
+                    listView_Sanatci.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
+                }
+                else if (listView_Sanatci.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
+                {
+                    listView_Sanatci.Items[si].Selected = true; // Bir önceki itemi seç.
+                }
+            }
+        }
+
+        private void listView_Muzik_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (listView_Muzik.Items.Count > 0 && listView_Muzik.SelectedItems.Count > 0) // Listede yüklü item varsa...
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Delete:
+                        listView_Muzik.SelectedItems[0].Remove();
+                        break;
+                    case Keys.Enter:
+                        listedenOynat(listView_Muzik, 5, listView_Muzik.SelectedItems[0].Index);
+                        break;
+                    case Keys.Space:
+                        listedenOynat(listView_Muzik, 5, listView_Muzik.SelectedItems[0].Index);
+                        break;
+                    default:
+                        break;
+                }
+
+                int si = listView_Muzik.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
+
+                //if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
+                //{
+                //    listView_Muzik.SelectedItems[0].Remove(); // Seçili item siliniyor.
+                //}
+
+                if (listView_Muzik.Items.Count == 0) // Listede item kalmadıysa..
+                {
+                    //Birşey yapma.
+                }
+                else if (listView_Muzik.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
+                {
+                    listView_Muzik.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
+                }
+                else if (listView_Muzik.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
+                {
+                    listView_Muzik.Items[si].Selected = true; // Bir önceki itemi seç.
+                }
+            }
+        }
+
+        private void listView_Video_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (listView_Video.Items.Count > 0 && listView_Video.SelectedItems.Count > 0) // Listede yüklü item varsa...
+            {
+                switch (e.KeyCode)
+                {
+                    case Keys.Delete:
+                        listView_Video.SelectedItems[0].Remove();
+                        break;
+                    case Keys.Enter:
+                        listedenOynat(listView_Video, 3, listView_Video.SelectedItems[0].Index);
+                        break;
+                    case Keys.Space:
+                        listedenOynat(listView_Video, 3, listView_Video.SelectedItems[0].Index);
+                        break;
+                    default:
+                        break;
+                }
+
+                int si = listView_Video.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
+
+                //if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
+                //{
+                //    listView_Video.SelectedItems[0].Remove(); // Seçili item siliniyor.
+                //}
+
+                if (listView_Video.Items.Count == 0) // Listede item kalmadıysa..
+                {
+                    //Birşey yapma.
+                }
+                else if (listView_Video.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
+                {
+                    listView_Video.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
+                }
+                else if (listView_Video.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
+                {
+                    listView_Video.Items[si].Selected = true; // Bir önceki itemi seç.
+                }
+            }
+        }
+        #endregion Listeler KeyDown
+
+        #region Sil Butonu
         private void mpButon_Sil_Click(object sender, EventArgs e)
         {
             tumListesindenSil();
         }
-        #endregion Sil Buton Tıklama
+        #endregion Sil Butonu
+
         #region axMediaPlayer Events
         #region axMediaPlayer Mevcut Medyadaki Değişim
         private void axWindowsMediaPlayer1_CurrentItemChange(object sender, AxWMPLib._WMPOCXEvents_CurrentItemChangeEvent e)
@@ -362,17 +637,7 @@ namespace MediaPlayer
             //listView_Tum_Liste.Items[???].Selected=true;
         }
         #endregion axMediaPlayer Mevcut Medyadaki Değişim
-        #region axMediaPlayer Medya Akış değişimi
-        private void axWindowsMediaPlayer1_PositionChange(object sender, AxWMPLib._WMPOCXEvents_PositionChangeEvent e)
-        {
-            int i = 1;
-            i += 1;
-
-            label_Zaman.Text = i.ToString();
-        }
-        #endregion axMediaPlayer Medya Akış değişimi
         #endregion axMediaPlayer Events
-
 
         #region Kontrol butonları resimleri
 
@@ -729,7 +994,6 @@ namespace MediaPlayer
         }
 
         #endregion Seslendirme
-
         #region Seslendirme denetimleri
         private void checkBox_BaslikSesleri_CheckedChanged(object sender, EventArgs e)
         {
@@ -789,165 +1053,6 @@ namespace MediaPlayer
         }
         #endregion Seslendirme denetimleri
 
-        #region Listeden Sil
-        private void tumListesindenSil() // Tum Listesinden gerekli satırı silip, sonraki seçilecek satırı belirler.
-        {
-            if (listView_Tum_Liste.Items.Count > 0 && listView_Tum_Liste.SelectedItems.Count > 0) // Listede yüklü item varsa...
-            {
-                int si = listView_Tum_Liste.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
-                listView_Tum_Liste.SelectedItems[0].Remove(); // Seçili item siliniyor.
-
-                List<ListViewItem> itemList = new List<ListViewItem>();
-                int sonSiraNo = -1;
-                foreach (ListViewItem dosyaYolu in listView_Tum_Liste.Items)//Seçilen dosya kadar döngüye giriliyor.
-                {
-                    Listele Item = new Listele();// Yeni ListView Itemi oluşturuluyor.
-                    itemList.Add(Item.klasorden_Listele(sonSiraNo += 1, dosyaYolu.SubItems[3].Text)); //ilksıradaki itemitem listineekleniyor.
-                    listView_Tum_Liste.Items.Remove(dosyaYolu); // Okunan satırsiliniyor.
-                }
-
-                listView_Tum_Liste.Items.AddRange(itemList.ToArray()); //Oluşturulan Item listesi tüm liste listViewine ekleniyor.
-                                                                       //backgroundCompletedEventCancel = false; // Uyarılar gösterilmesin
-                                                                       //backgroundWorker_ListeOlustur.RunWorkerAsync();//Listeler Oluşturuluyor.
-                if (listView_Tum_Liste.Items.Count == 0) // Listede item kalmadıysa..
-                {
-                    //Birşey yapma.
-                }
-                else if (listView_Tum_Liste.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
-                {
-                    //listView_Tum_Liste.Sorting = SortOrder.Ascending;
-                    //listView_Tum_Liste.Sort();
-                    listView_Tum_Liste.Focus();
-                    listView_Tum_Liste.Select();
-                    listView_Tum_Liste.Items[si - 1].Focused = true;
-                    listView_Tum_Liste.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
-                }
-                else if (listView_Tum_Liste.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
-                {
-                    //listView_Tum_Liste.Sorting = SortOrder.Ascending;
-                    //listView_Tum_Liste.Sort();
-                    listView_Tum_Liste.Focus();
-                    listView_Tum_Liste.Select();
-                    listView_Tum_Liste.Items[si].Focused = true;
-                    listView_Tum_Liste.Items[si].Selected = true; // Bir önceki itemi seç.
-                }
-            }
-        }
-
-        private void listView_Tum_Liste_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
-            {
-                tumListesindenSil();
-            }
-        }
-
-        private void listView_Album_KeyDown(object sender, KeyEventArgs e)
-        {
-
-            if (listView_Album.Items.Count > 0 && listView_Album.SelectedItems.Count > 0) // Listede yüklü item varsa...
-            {
-                int si = listView_Album.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
-
-                if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
-                {
-                    listView_Album.SelectedItems[0].Remove(); // Seçili item siliniyor.
-                }
-
-                if (listView_Album.Items.Count == 0) // Listede item kalmadıysa..
-                {
-                    //Birşey yapma.
-                }
-                else if (listView_Album.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
-                {
-                    listView_Album.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
-                }
-                else if (listView_Album.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
-                {
-                    listView_Album.Items[si].Selected = true; // Bir önceki itemi seç.
-                }
-            }
-        }
-
-        private void listView_Sanatci_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (listView_Sanatci.Items.Count > 0 && listView_Sanatci.SelectedItems.Count > 0) // Listede yüklü item varsa...
-            {
-                int si = listView_Sanatci.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
-
-                if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
-                {
-                    listView_Sanatci.SelectedItems[0].Remove(); // Seçili item siliniyor.
-                }
-
-                if (listView_Sanatci.Items.Count == 0) // Listede item kalmadıysa..
-                {
-                    //Birşey yapma.
-                }
-                else if (listView_Sanatci.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
-                {
-                    listView_Sanatci.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
-                }
-                else if (listView_Sanatci.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
-                {
-                    listView_Sanatci.Items[si].Selected = true; // Bir önceki itemi seç.
-                }
-            }
-        }
-
-        private void listView_Muzik_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (listView_Muzik.Items.Count > 0 && listView_Muzik.SelectedItems.Count > 0) // Listede yüklü item varsa...
-            {
-                int si = listView_Muzik.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
-
-                if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
-                {
-                    listView_Muzik.SelectedItems[0].Remove(); // Seçili item siliniyor.
-                }
-
-                if (listView_Muzik.Items.Count == 0) // Listede item kalmadıysa..
-                {
-                    //Birşey yapma.
-                }
-                else if (listView_Muzik.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
-                {
-                    listView_Muzik.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
-                }
-                else if (listView_Muzik.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
-                {
-                    listView_Muzik.Items[si].Selected = true; // Bir önceki itemi seç.
-                }
-            }
-        }
-
-        private void listView_Video_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (listView_Video.Items.Count > 0 && listView_Video.SelectedItems.Count > 0) // Listede yüklü item varsa...
-            {
-                int si = listView_Video.SelectedItems[0].Index; // Silinecek olan seçili itemin indexi alınıyor.
-
-                if (e.KeyValue == 46) //DEL tuşuna basıldıysa.
-                {
-                    listView_Video.SelectedItems[0].Remove(); // Seçili item siliniyor.
-                }
-
-                if (listView_Video.Items.Count == 0) // Listede item kalmadıysa..
-                {
-                    //Birşey yapma.
-                }
-                else if (listView_Video.Items.Count < si + 1) //Listedeki item sayısı seçilen indexten az ise...
-                {
-                    listView_Video.Items[si - 1].Selected = true; // Tıklanan sırayı tekrar seç.
-                }
-                else if (listView_Video.Items.Count >= si + 1) //Listedeki item sayısı seçilen indexten fazla yada eşit ise...
-                {
-                    listView_Video.Items[si].Selected = true; // Bir önceki itemi seç.
-                }
-            }
-        }
-        #endregion Listeden Sil
-
         #region Kontroller seçildiğinde - çıkıldığında
 
         private void tabPage_Oynat_Enter(object sender, EventArgs e)
@@ -981,11 +1086,6 @@ namespace MediaPlayer
         private void listView_Video_Leave(object sender, EventArgs e)
         {
             ses.SpeakAsyncCancelAll();
-            seslendir.Oynat(mpTabControl_Ana_Menu.SelectedTab.Name, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
-        }
-
-        private void trackBar_SeslendirmeUyariveHata_Leave(object sender, EventArgs e)
-        {
             seslendir.Oynat(mpTabControl_Ana_Menu.SelectedTab.Name, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
         }
 
@@ -1038,7 +1138,7 @@ namespace MediaPlayer
                 if (listView_Album.SelectedItems.Count > 0)
                 {
                     ses.SpeakAsyncCancelAll();
-                    ses.SpeakAsync(listView_Album.SelectedItems[0].SubItems[1].Text);
+                    ses.SpeakAsync(listView_Album.SelectedItems[0].SubItems[0].Text + listView_Album.SelectedItems[0].SubItems[1].Text + listView_Album.SelectedItems[0].SubItems[2].Text);
                 }
             }
             else if (listView_Album.Items.Count < 1)
@@ -1059,7 +1159,7 @@ namespace MediaPlayer
                 if (listView_Sanatci.SelectedItems.Count > 0)
                 {
                     ses.SpeakAsyncCancelAll();
-                    ses.SpeakAsync(listView_Sanatci.SelectedItems[0].SubItems[1].Text);
+                    ses.SpeakAsync(listView_Sanatci.SelectedItems[0].SubItems[0].Text + listView_Sanatci.SelectedItems[0].SubItems[1].Text);
                 }
             }
             else if (listView_Sanatci.Items.Count < 1)
@@ -1122,7 +1222,7 @@ namespace MediaPlayer
             {
                 seslendir.Durdur();
                 ses.SpeakAsyncCancelAll();
-                ses.SpeakAsync(listView_Album.SelectedItems[0].SubItems[1].Text);
+                ses.SpeakAsync(listView_Album.SelectedItems[0].SubItems[0].Text + listView_Album.SelectedItems[0].SubItems[1].Text + listView_Album.SelectedItems[0].SubItems[2].Text);
             }
         }
 
@@ -1132,7 +1232,7 @@ namespace MediaPlayer
             {
                 seslendir.Durdur();
                 ses.SpeakAsyncCancelAll();
-                ses.SpeakAsync(listView_Sanatci.SelectedItems[0].SubItems[1].Text);
+                ses.SpeakAsync(listView_Sanatci.SelectedItems[0].SubItems[0].Text + listView_Sanatci.SelectedItems[0].SubItems[1].Text);
             }
         }
 
@@ -1183,6 +1283,55 @@ namespace MediaPlayer
         private void mpTabControl_Ana_Menu_Selected(object sender, TabControlEventArgs e)
         {
             seslendir.Oynat(mpTabControl_Ana_Menu.SelectedTab.Name, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
+        }
+
+        private void checkBox_OkumaSesleri_CheckedChanged(object sender, EventArgs e)
+        {
+            seslendirmeKonusmaSesiAcikmi = checkBox_OkumaSesleri.Checked; //Konuşma seslendirmelerinin kullanıcı tarafından tercihi tutuluyor.
+            if (checkBox_OkumaSesleri.Checked)
+            {
+                seslendir.Oynat("16", seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
+            }
+            else
+            {
+                seslendir.Oynat("17", seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
+            }
+        }
+
+        private void trackBar_konusma_Leave(object sender, EventArgs e)
+        {
+            seslendir.Oynat(mpTabControl_Ana_Menu.SelectedTab.Name, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
+        }
+
+        private void trackBar_konusma_Enter(object sender, EventArgs e)
+        {
+            ses.SpeakAsync("Konuşma ses seviyesi");
+        }
+
+        private void trackBar_Oynat_Scroll(object sender, EventArgs e)
+        {
+            axWindowsMediaPlayer1.Ctlcontrols.currentPosition = trackBar_Oynat.Value;
+        }
+
+        private void checkBox_OkumaSesleri_Enter(object sender, EventArgs e)
+        {
+            checkBox_OkumaSesleri.Focus();
+            if (checkBox_OkumaSesleri.Checked)
+            {
+                seslendir.Oynat("16", seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
+            }
+            else
+            {
+                seslendir.Oynat("17", seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
+            }
+        }
+
+        private void trackBar_konusma_Scroll(object sender, EventArgs e)
+        {
+            seslendirmeKonusmaSesi = trackBar_konusma.Value; //Konuşma seslendirmelerinin ses ayarı.
+            ses.SpeakAsyncCancelAll();
+            ses.Volume = seslendirmeKonusmaSesi;
+            ses.SpeakAsync("Konuşma ses seviyesi");
         }
 
         private void mpTabControl_Listeler_Leave(object sender, EventArgs e)
@@ -1243,114 +1392,5 @@ namespace MediaPlayer
         }
         #endregion Kontroller seçildiğinde - çıkıldığında
 
-
-
-
-
-
-        #region Gezinme silinebilir.
-
-        //string tabNameO = "";
-        //bool tabDegisim;
-        //string[] tabCalmaListeleri = new string[3] { "tabPage_Tum_Listeler", "tabPage_Album", "tabPage_Sanatcilar" };
-        //string[] tabTumListe = new string[3] { "mpButon_Dosya_Ekle", "mpButon_Klasor_Ekle", "listView_Tum_Liste" };
-        //string[] tabOynat = new string[7] { "button_KontrolOynat", "button_KontrolDur", "button_KontrolDurdur", "button_KontrolGeri", "button_Kontrolileri", "trackBar_Ses", "trackBar_Oynat" };
-        //string[] tabAyarlar = new string[6] { "checkBox_BaslikSesleri", "trackBar_SeslendirmeBaslik", "checkBox_AciklamaSesleri", "trackBar_SeslendirmeAciklama", "checkBox_UyariveHataSesleri", "trackBar_SeslendirmeUyariveHata" };
-        //int dCalmaListeleri = 0, dTumListe = 0, dOynat = 0, dAyarlar = 0;
-
-        //public void gezinme(string tabName, int tus)
-        //{
-        //    ListViewItem item = new ListViewItem();
-        //    item.Text = "Tab= " + tabName;
-        //    item.SubItems.Add("Index= " + dCalmaListeleri.ToString());
-        //    listView_Tum_Liste.Items.Add(item);
-
-        //    if (tabName == tabNameO) //Gelen tabName önceki ile aynımı
-        //    {
-        //        tabDegisim = true; //Aynıysa true
-        //    }
-        //    else
-        //    {
-        //        dCalmaListeleri = 0;
-        //        tabNameO = tabName; //Değilse eşitle
-        //        tabDegisim = false; //ve false yap.
-        //    }
-        //    switch (tabName)
-        //    {
-        //        case "tabPage_CalmaListeleri":
-
-        //            switch (dCalmaListeleri)
-        //            {
-        //                case 0:
-        //                    mpTabControl_Listeler.SelectedIndex = 0;
-        //                    SelectNextControl(mpTabControl_Listeler.TabPages[0], true, true, true, false);
-        //                    seslendir.Durdur();
-        //                    seslendir.Oynat("tabPage_Tum_Listeler", seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
-        //                    if (tus == 1)
-        //                    {
-        //                        dCalmaListeleri = 1;
-        //                    }
-        //                    if (tus==2)
-        //                    {
-        //                        dCalmaListeleri = 2;
-        //                    }
-
-        //                    break;
-        //                case 1:
-        //                    mpTabControl_Listeler.SelectedIndex = 1;
-        //                    SelectNextControl(mpTabControl_Listeler.TabPages[1], true, true, true, false);
-        //                    seslendir.Durdur();
-        //                    seslendir.Oynat("tabPage_Album", seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
-        //                    if (tus == 1)
-        //                    {
-        //                        dCalmaListeleri = 2;
-        //                    }
-        //                    else if (tus == 2)
-        //                    {
-        //                        dCalmaListeleri = 0;
-        //                    }
-        //                    break;
-        //                case 2:
-        //                    mpTabControl_Listeler.SelectedIndex = 2;
-        //                    SelectNextControl(mpTabControl_Listeler.TabPages[2], true, true, true, false);
-        //                    seslendir.Durdur();
-        //                    seslendir.Oynat("tabPage_Sanatcilar", seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
-        //                    if (tus == 1)
-        //                    {
-        //                        dCalmaListeleri = 0;
-        //                    }
-        //                    else if (tus == 2)
-        //                    {
-        //                        dCalmaListeleri = 1;
-        //                    }
-        //                    break;
-        //                default:
-        //                    break;
-        //            }
-
-        //            break;
-
-        //        case "tabPage_Muzik":
-        //            listView_Muzik.Focus();
-        //            break;
-        //        case "tabPage_Video":
-        //            listView_Video.Focus();
-        //            break;
-        //        case "tabPage_Oynat":
-        //            button_KontrolOynat.Focus();
-        //            break;
-        //        case "tabPage_Ayarlar":
-        //            checkBox_BaslikSesleri.Focus();
-        //            break;
-        //        case "tabPage_Yardim":
-
-        //            break;
-        //        default:
-        //            break;
-
-        //    }
-        //}
-
-        #endregion Gezinme
     }
 }

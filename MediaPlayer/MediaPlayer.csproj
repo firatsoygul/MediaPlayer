@@ -50,6 +50,18 @@
     <Compile Include="Arayuz.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DizinYoneticisi\DosyaYonetici.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DizinYoneticisi\DosyaYonetici.Designer.cs">
+      <DependentUpon>DosyaYonetici.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DizinYoneticisi\DizinYonetici.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DizinYoneticisi\DizinYonetici.Designer.cs">
+      <DependentUpon>DizinYonetici.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -70,6 +82,12 @@
     <Compile Include="Uyari\Uyari.cs">
       <SubType>Component</SubType>
     </Compile>
+    <EmbeddedResource Include="DizinYoneticisi\DosyaYonetici.resx">
+      <DependentUpon>DosyaYonetici.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DizinYoneticisi\DizinYonetici.resx">
+      <DependentUpon>DizinYonetici.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -167,9 +185,6 @@
     <None Include="Resources\a1.mp3" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\a2.mp3" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\a3.mp3" />
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +207,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\h4.mp3" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\hk1.mp3" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\k1.mp3" />
@@ -342,6 +354,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\u19.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\a2.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hk1.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u20.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u21.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u22.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\u23.mp3" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1_780x35.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -27,7 +27,7 @@ namespace MediaPlayer.Seslendirme
         IWMPMedia mediaTL1, mediaTL2; //Tüm Listeler menüsünde oynatılacak medyalar.
         IWMPMedia mediaALBM1, mediaALBM2; //Albüm menüsünde oynatılacak medyalar.
         IWMPMedia mediaSNT1, mediaSNT2; //Sanatçılar menüsünde oynatılacak medyalar.
-        IWMPMedia[] mediaBTN = new IWMPMedia[16]; //Butonlar için gerekli medyalar.
+        IWMPMedia[] mediaBTN = new IWMPMedia[18]; //Butonlar için gerekli medyalar.
 
         int toplamSureAciklamaCalmaListeleri = 0, toplamSureBaslikCalmaListeleri = 0;
         int toplamSureAciklamaMuzik = 0, toplamSureBaslikMuzik = 0;
@@ -276,7 +276,7 @@ namespace MediaPlayer.Seslendirme
 
         /// <summary>
         ///Sırasıyla Name ya da buton no, başlık sesi açıkmı, Açıklama sesi açıkmı, Başlık ses seviyesi, Açıklama ses seviyesi. 
-        ///Buton kodları= 0- oynatmayi_baslat, 1- oynatmayi_durdur, 2- duraklat, 3- sonraki, 4- onceki, 5- Ses, 6- İlerleme, 7- Başlık sesleri açık, 8- Başlık sesleri kapalı, 9- Açıklama sesleri açık, 10- Açıklama sesleri kapalı, 11- Uyarı sesleri açık, 12- Uyarı sesleri kapalı, 13- Başlık ses seviyesi, 14- Açıklama ses seviyesi, 15- Uyarı ses seviyesi
+        ///Buton kodları= 0- oynatmayi_baslat, 1- oynatmayi_durdur, 2- duraklat, 3- sonraki, 4- onceki, 5- Ses, 6- İlerleme, 7- Başlık sesleri açık, 8- Başlık sesleri kapalı, 9- Açıklama sesleri açık, 10- Açıklama sesleri kapalı, 11- Uyarı sesleri açık, 12- Uyarı sesleri kapalı, 13- Başlık ses seviyesi, 14- Açıklama ses seviyesi, 15- Uyarı ses seviyesi, 16- konuşma sesleri açık, 17- konuşma sesleri kapalı.
         /// </summary>
         public void Oynat(string name, bool baslikSesiAcikmi, bool aciklamaSesiAcikmi, int baslikSesi, int aciklamaSesi)
         {
@@ -422,7 +422,7 @@ namespace MediaPlayer.Seslendirme
         //IWMPPlaylist plylst_UyariveHata;
         bool uyariveHataSesiAcikmiO;
         int uyariveHataSesiO;
-        IWMPMedia[] mediaUvH = new IWMPMedia[19]; //Çalma Listelerinde oynatılacak medyalar.
+        IWMPMedia[] mediaUvH = new IWMPMedia[21]; //Çalma Listelerinde oynatılacak medyalar.
 
         public Uyari()
         {
@@ -441,7 +441,7 @@ namespace MediaPlayer.Seslendirme
         }
 
         /// <summary>
-        /// Uyarı ve Hata kodu olarak aşağıdaki ilgili kod gönderilir. 1-Uyarı, 2-Lütfen bekleyin, 3-Klasör seçiniz, 4-Eklenecek dosyaları seçiniz, 5-Klasör ekle, 6-Listeden sil 7-Dosyalar ekleniyor, 8-Dosya ekle, 9-Dosya seçiniz, 10-Dosya konumu, 11-Dosya adı, 12-Sanatçı, 13-Sil, 14-Süre, 15-Silinecek dosyaları seçiniz, 16-Seçilen dosyalar listelere ekleniyor, 17-Dosyalar eklendi, 18-Desteklenmeyen bazı dosyalar listelere eklenemedi, 19-Liste boş.
+        /// Uyarı ve Hata kodu olarak aşağıdaki ilgili kod gönderilir. 1-Uyarı, 2-Lütfen bekleyin, 3-Klasör seçiniz, 4-Eklenecek dosyaları seçiniz, 5-Klasör ekle, 6-Listeden sil 7-Dosyalar ekleniyor, 8-Dosya ekle, 9-Dosya seçiniz, 10-Dosya konumu, 11-Dosya adı, 12-Sanatçı, 13-Sil, 14-Süre, 15-Silinecek dosyaları seçiniz, 16-Seçilen dosyalar listelere ekleniyor, 17-Dosyalar eklendi, 18-Desteklenmeyen bazı dosyalar listelere eklenemedi, 19-Liste boş, 20- çık, 21- iptal
         /// </summary>
         public void Oynat(int uyariVeyaHataKodu, bool uyariSesiAcikmi, int uyariSesi)
         {

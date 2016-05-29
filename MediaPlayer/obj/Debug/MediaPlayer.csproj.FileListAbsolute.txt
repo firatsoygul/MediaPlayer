@@ -13,3 +13,5 @@ D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.csproj.ResolveComRe
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\Interop.WMPLib.dll
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\AxInterop.WMPLib.dll
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.Sesler.resources
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.DizinYoneticisi.DizinYonetici.resources
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.DizinYoneticisi.DosyaYonetici.resources

@@ -79,19 +79,21 @@
             this.column_Video_Konum = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabPage_Oynat = new System.Windows.Forms.TabPage();
             this.trackBar_Ses = new System.Windows.Forms.TrackBar();
-            this.button_KontrolDur = new System.Windows.Forms.Button();
-            this.button_KontrolDurdur = new System.Windows.Forms.Button();
             this.label_Zaman = new System.Windows.Forms.Label();
             this.label_ParcaAdi = new System.Windows.Forms.Label();
             this.label_SanatciAdi = new System.Windows.Forms.Label();
-            this.button_KontrolGeri = new System.Windows.Forms.Button();
-            this.button_Kontrolileri = new System.Windows.Forms.Button();
-            this.button_KontrolOynat = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.trackBar_Oynat = new System.Windows.Forms.TrackBar();
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
+            this.button_KontrolDur = new System.Windows.Forms.Button();
+            this.button_KontrolDurdur = new System.Windows.Forms.Button();
+            this.button_KontrolGeri = new System.Windows.Forms.Button();
+            this.button_Kontrolileri = new System.Windows.Forms.Button();
+            this.button_KontrolOynat = new System.Windows.Forms.Button();
             this.tabPage_Ayarlar = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.trackBar_konusma = new System.Windows.Forms.TrackBar();
+            this.checkBox_OkumaSesleri = new System.Windows.Forms.CheckBox();
             this.trackBar_SeslendirmeUyariveHata = new System.Windows.Forms.TrackBar();
             this.trackBar_SeslendirmeAciklama = new System.Windows.Forms.TrackBar();
             this.trackBar_SeslendirmeBaslik = new System.Windows.Forms.TrackBar();
@@ -103,7 +105,7 @@
             this.label_BaslikSesleri = new System.Windows.Forms.Label();
             this.tabPage_Yardim = new System.Windows.Forms.TabPage();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.mpTabControl_Ana_Menu.SuspendLayout();
             this.tabPage_CalmaListeleri.SuspendLayout();
@@ -120,6 +122,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.tabPage_Ayarlar.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_konusma)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeUyariveHata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeAciklama)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeBaslik)).BeginInit();
@@ -614,15 +617,15 @@
             this.tabPage_Oynat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.tabPage_Oynat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.tabPage_Oynat.Controls.Add(this.trackBar_Ses);
-            this.tabPage_Oynat.Controls.Add(this.button_KontrolDur);
-            this.tabPage_Oynat.Controls.Add(this.button_KontrolDurdur);
             this.tabPage_Oynat.Controls.Add(this.label_Zaman);
             this.tabPage_Oynat.Controls.Add(this.label_ParcaAdi);
             this.tabPage_Oynat.Controls.Add(this.label_SanatciAdi);
+            this.tabPage_Oynat.Controls.Add(this.tableLayoutPanel1);
+            this.tabPage_Oynat.Controls.Add(this.button_KontrolDur);
+            this.tabPage_Oynat.Controls.Add(this.button_KontrolDurdur);
             this.tabPage_Oynat.Controls.Add(this.button_KontrolGeri);
             this.tabPage_Oynat.Controls.Add(this.button_Kontrolileri);
             this.tabPage_Oynat.Controls.Add(this.button_KontrolOynat);
-            this.tabPage_Oynat.Controls.Add(this.tableLayoutPanel1);
             this.tabPage_Oynat.Location = new System.Drawing.Point(4, 49);
             this.tabPage_Oynat.Margin = new System.Windows.Forms.Padding(0);
             this.tabPage_Oynat.Name = "tabPage_Oynat";
@@ -645,43 +648,6 @@
             this.trackBar_Ses.Scroll += new System.EventHandler(this.trackBar_Ses_Scroll);
             this.trackBar_Ses.Enter += new System.EventHandler(this.trackBar_Ses_Enter);
             this.trackBar_Ses.Leave += new System.EventHandler(this.trackBar_Ses_Leave);
-            // 
-            // button_KontrolDur
-            // 
-            this.button_KontrolDur.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_KontrolDur.BackgroundImage = global::MediaPlayer.Properties.Resources.dur;
-            this.button_KontrolDur.FlatAppearance.BorderSize = 0;
-            this.button_KontrolDur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_KontrolDur.Location = new System.Drawing.Point(61, 477);
-            this.button_KontrolDur.Name = "button_KontrolDur";
-            this.button_KontrolDur.Size = new System.Drawing.Size(50, 40);
-            this.button_KontrolDur.TabIndex = 2;
-            this.button_KontrolDur.Tag = "kontrolDur";
-            this.button_KontrolDur.UseVisualStyleBackColor = true;
-            this.button_KontrolDur.Click += new System.EventHandler(this.button_KontrolDur_Click);
-            this.button_KontrolDur.Enter += new System.EventHandler(this.button_KontrolDur_Enter);
-            this.button_KontrolDur.MouseLeave += new System.EventHandler(this.button_KontrolDur_MouseLeave);
-            this.button_KontrolDur.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolDur_MouseMove);
-            // 
-            // button_KontrolDurdur
-            // 
-            this.button_KontrolDurdur.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_KontrolDurdur.BackgroundImage = global::MediaPlayer.Properties.Resources.durdur;
-            this.button_KontrolDurdur.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.button_KontrolDurdur.FlatAppearance.BorderSize = 0;
-            this.button_KontrolDurdur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_KontrolDurdur.ForeColor = System.Drawing.Color.Transparent;
-            this.button_KontrolDurdur.Location = new System.Drawing.Point(112, 477);
-            this.button_KontrolDurdur.Name = "button_KontrolDurdur";
-            this.button_KontrolDurdur.Size = new System.Drawing.Size(70, 40);
-            this.button_KontrolDurdur.TabIndex = 3;
-            this.button_KontrolDurdur.Tag = "kontrolDuraklat";
-            this.button_KontrolDurdur.UseVisualStyleBackColor = true;
-            this.button_KontrolDurdur.Visible = false;
-            this.button_KontrolDurdur.Click += new System.EventHandler(this.button_KontrolDurdur_Click);
-            this.button_KontrolDurdur.Enter += new System.EventHandler(this.button_KontrolDurdur_Enter);
-            this.button_KontrolDurdur.MouseLeave += new System.EventHandler(this.button_KontrolDurdur_MouseLeave);
-            this.button_KontrolDurdur.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolDurdur_MouseMove);
             // 
             // label_Zaman
             // 
@@ -722,6 +688,104 @@
             this.label_SanatciAdi.Size = new System.Drawing.Size(44, 23);
             this.label_SanatciAdi.TabIndex = 0;
             this.label_SanatciAdi.Text = "-  -  -";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.trackBar_Oynat, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.axWindowsMediaPlayer1, 0, 0);
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(951, 468);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // trackBar_Oynat
+            // 
+            this.trackBar_Oynat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.trackBar_Oynat.Location = new System.Drawing.Point(0, 443);
+            this.trackBar_Oynat.Margin = new System.Windows.Forms.Padding(0);
+            this.trackBar_Oynat.Maximum = 100;
+            this.trackBar_Oynat.Name = "trackBar_Oynat";
+            this.trackBar_Oynat.Size = new System.Drawing.Size(951, 25);
+            this.trackBar_Oynat.SmallChange = 5;
+            this.trackBar_Oynat.TabIndex = 6;
+            this.trackBar_Oynat.Tag = "kontrolilerleme";
+            this.trackBar_Oynat.TickFrequency = 20;
+            this.trackBar_Oynat.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_Oynat.Scroll += new System.EventHandler(this.trackBar_Oynat_Scroll);
+            this.trackBar_Oynat.Enter += new System.EventHandler(this.trackBar_Oynat_Enter);
+            this.trackBar_Oynat.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_Oynat_MouseUp);
+            // 
+            // axWindowsMediaPlayer1
+            // 
+            this.axWindowsMediaPlayer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.axWindowsMediaPlayer1.Enabled = true;
+            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(0, 0);
+            this.axWindowsMediaPlayer1.Margin = new System.Windows.Forms.Padding(0);
+            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
+            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
+            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(951, 443);
+            this.axWindowsMediaPlayer1.TabIndex = 0;
+            this.axWindowsMediaPlayer1.TabStop = false;
+            this.axWindowsMediaPlayer1.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer1_PlayStateChange);
+            this.axWindowsMediaPlayer1.CurrentItemChange += new AxWMPLib._WMPOCXEvents_CurrentItemChangeEventHandler(this.axWindowsMediaPlayer1_CurrentItemChange);
+            // 
+            // button_KontrolDur
+            // 
+            this.button_KontrolDur.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_KontrolDur.BackgroundImage = global::MediaPlayer.Properties.Resources.dur;
+            this.button_KontrolDur.FlatAppearance.BorderSize = 0;
+            this.button_KontrolDur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_KontrolDur.Location = new System.Drawing.Point(61, 477);
+            this.button_KontrolDur.Name = "button_KontrolDur";
+            this.button_KontrolDur.Size = new System.Drawing.Size(50, 40);
+            this.button_KontrolDur.TabIndex = 2;
+            this.button_KontrolDur.Tag = "kontrolDur";
+            this.button_KontrolDur.UseVisualStyleBackColor = true;
+            this.button_KontrolDur.Click += new System.EventHandler(this.button_KontrolDur_Click);
+            this.button_KontrolDur.Enter += new System.EventHandler(this.button_KontrolDur_Enter);
+            this.button_KontrolDur.MouseLeave += new System.EventHandler(this.button_KontrolDur_MouseLeave);
+            this.button_KontrolDur.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolDur_MouseMove);
+            // 
+            // button_KontrolDurdur
+            // 
+            this.button_KontrolDurdur.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.button_KontrolDurdur.BackgroundImage = global::MediaPlayer.Properties.Resources.durdur;
+            this.button_KontrolDurdur.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.button_KontrolDurdur.FlatAppearance.BorderSize = 0;
+            this.button_KontrolDurdur.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_KontrolDurdur.ForeColor = System.Drawing.Color.Transparent;
+            this.button_KontrolDurdur.Location = new System.Drawing.Point(112, 477);
+            this.button_KontrolDurdur.Name = "button_KontrolDurdur";
+            this.button_KontrolDurdur.Size = new System.Drawing.Size(70, 40);
+            this.button_KontrolDurdur.TabIndex = 3;
+            this.button_KontrolDurdur.Tag = "kontrolDuraklat";
+            this.button_KontrolDurdur.UseVisualStyleBackColor = true;
+            this.button_KontrolDurdur.Visible = false;
+            this.button_KontrolDurdur.Click += new System.EventHandler(this.button_KontrolDurdur_Click);
+            this.button_KontrolDurdur.Enter += new System.EventHandler(this.button_KontrolDurdur_Enter);
+            this.button_KontrolDurdur.MouseLeave += new System.EventHandler(this.button_KontrolDurdur_MouseLeave);
+            this.button_KontrolDurdur.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolDurdur_MouseMove);
             // 
             // button_KontrolGeri
             // 
@@ -780,66 +844,6 @@
             this.button_KontrolOynat.MouseLeave += new System.EventHandler(this.button_KontrolOynat_MouseLeave);
             this.button_KontrolOynat.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button_KontrolOynat_MouseMove);
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.trackBar_Oynat, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.axWindowsMediaPlayer1, 0, 0);
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 3);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(951, 468);
-            this.tableLayoutPanel1.TabIndex = 0;
-            // 
-            // trackBar_Oynat
-            // 
-            this.trackBar_Oynat.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.trackBar_Oynat.Location = new System.Drawing.Point(0, 443);
-            this.trackBar_Oynat.Margin = new System.Windows.Forms.Padding(0);
-            this.trackBar_Oynat.Maximum = 100;
-            this.trackBar_Oynat.Name = "trackBar_Oynat";
-            this.trackBar_Oynat.Size = new System.Drawing.Size(951, 25);
-            this.trackBar_Oynat.TabIndex = 6;
-            this.trackBar_Oynat.Tag = "kontrolilerleme";
-            this.trackBar_Oynat.TickFrequency = 5;
-            this.trackBar_Oynat.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBar_Oynat.Enter += new System.EventHandler(this.trackBar_Oynat_Enter);
-            this.trackBar_Oynat.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_Oynat_MouseUp);
-            // 
-            // axWindowsMediaPlayer1
-            // 
-            this.axWindowsMediaPlayer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(0, 0);
-            this.axWindowsMediaPlayer1.Margin = new System.Windows.Forms.Padding(0);
-            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(951, 443);
-            this.axWindowsMediaPlayer1.TabIndex = 0;
-            this.axWindowsMediaPlayer1.TabStop = false;
-            this.axWindowsMediaPlayer1.PlayStateChange += new AxWMPLib._WMPOCXEvents_PlayStateChangeEventHandler(this.axWindowsMediaPlayer1_PlayStateChange);
-            this.axWindowsMediaPlayer1.PositionChange += new AxWMPLib._WMPOCXEvents_PositionChangeEventHandler(this.axWindowsMediaPlayer1_PositionChange);
-            this.axWindowsMediaPlayer1.CurrentItemChange += new AxWMPLib._WMPOCXEvents_CurrentItemChangeEventHandler(this.axWindowsMediaPlayer1_CurrentItemChange);
-            // 
             // tabPage_Ayarlar
             // 
             this.tabPage_Ayarlar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
@@ -855,6 +859,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.trackBar_konusma);
+            this.groupBox1.Controls.Add(this.checkBox_OkumaSesleri);
             this.groupBox1.Controls.Add(this.trackBar_SeslendirmeUyariveHata);
             this.groupBox1.Controls.Add(this.trackBar_SeslendirmeAciklama);
             this.groupBox1.Controls.Add(this.trackBar_SeslendirmeBaslik);
@@ -873,9 +879,34 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Seslendirme";
             // 
+            // trackBar_konusma
+            // 
+            this.trackBar_konusma.Location = new System.Drawing.Point(697, 71);
+            this.trackBar_konusma.Maximum = 100;
+            this.trackBar_konusma.Name = "trackBar_konusma";
+            this.trackBar_konusma.Size = new System.Drawing.Size(200, 45);
+            this.trackBar_konusma.SmallChange = 10;
+            this.trackBar_konusma.TabIndex = 8;
+            this.trackBar_konusma.TickFrequency = 10;
+            this.trackBar_konusma.Scroll += new System.EventHandler(this.trackBar_konusma_Scroll);
+            this.trackBar_konusma.Enter += new System.EventHandler(this.trackBar_konusma_Enter);
+            this.trackBar_konusma.Leave += new System.EventHandler(this.trackBar_konusma_Leave);
+            // 
+            // checkBox_OkumaSesleri
+            // 
+            this.checkBox_OkumaSesleri.AutoSize = true;
+            this.checkBox_OkumaSesleri.Location = new System.Drawing.Point(705, 34);
+            this.checkBox_OkumaSesleri.Name = "checkBox_OkumaSesleri";
+            this.checkBox_OkumaSesleri.Size = new System.Drawing.Size(90, 28);
+            this.checkBox_OkumaSesleri.TabIndex = 7;
+            this.checkBox_OkumaSesleri.Text = "Okuma";
+            this.checkBox_OkumaSesleri.UseVisualStyleBackColor = true;
+            this.checkBox_OkumaSesleri.CheckedChanged += new System.EventHandler(this.checkBox_OkumaSesleri_CheckedChanged);
+            this.checkBox_OkumaSesleri.Enter += new System.EventHandler(this.checkBox_OkumaSesleri_Enter);
+            // 
             // trackBar_SeslendirmeUyariveHata
             // 
-            this.trackBar_SeslendirmeUyariveHata.Location = new System.Drawing.Point(681, 71);
+            this.trackBar_SeslendirmeUyariveHata.Location = new System.Drawing.Point(469, 71);
             this.trackBar_SeslendirmeUyariveHata.Maximum = 100;
             this.trackBar_SeslendirmeUyariveHata.Name = "trackBar_SeslendirmeUyariveHata";
             this.trackBar_SeslendirmeUyariveHata.Size = new System.Drawing.Size(200, 45);
@@ -885,11 +916,10 @@
             this.trackBar_SeslendirmeUyariveHata.TickFrequency = 10;
             this.trackBar_SeslendirmeUyariveHata.Scroll += new System.EventHandler(this.trackBar_SeslendirmeUyariveHata_Scroll);
             this.trackBar_SeslendirmeUyariveHata.Enter += new System.EventHandler(this.trackBar_SeslendirmeUyariveHata_Enter);
-            this.trackBar_SeslendirmeUyariveHata.Leave += new System.EventHandler(this.trackBar_SeslendirmeUyariveHata_Leave);
             // 
             // trackBar_SeslendirmeAciklama
             // 
-            this.trackBar_SeslendirmeAciklama.Location = new System.Drawing.Point(339, 71);
+            this.trackBar_SeslendirmeAciklama.Location = new System.Drawing.Point(241, 71);
             this.trackBar_SeslendirmeAciklama.Maximum = 100;
             this.trackBar_SeslendirmeAciklama.Name = "trackBar_SeslendirmeAciklama";
             this.trackBar_SeslendirmeAciklama.Size = new System.Drawing.Size(200, 45);
@@ -915,7 +945,7 @@
             // label_UyariveHataSesleri
             // 
             this.label_UyariveHataSesleri.AutoSize = true;
-            this.label_UyariveHataSesleri.Location = new System.Drawing.Point(718, 34);
+            this.label_UyariveHataSesleri.Location = new System.Drawing.Point(498, 34);
             this.label_UyariveHataSesleri.Name = "label_UyariveHataSesleri";
             this.label_UyariveHataSesleri.Size = new System.Drawing.Size(160, 24);
             this.label_UyariveHataSesleri.TabIndex = 5;
@@ -924,7 +954,7 @@
             // checkBox_UyariveHataSesleri
             // 
             this.checkBox_UyariveHataSesleri.AutoSize = true;
-            this.checkBox_UyariveHataSesleri.Location = new System.Drawing.Point(688, 40);
+            this.checkBox_UyariveHataSesleri.Location = new System.Drawing.Point(476, 40);
             this.checkBox_UyariveHataSesleri.Name = "checkBox_UyariveHataSesleri";
             this.checkBox_UyariveHataSesleri.Size = new System.Drawing.Size(15, 14);
             this.checkBox_UyariveHataSesleri.TabIndex = 5;
@@ -935,7 +965,7 @@
             // label_AciklamaSesleri
             // 
             this.label_AciklamaSesleri.AutoSize = true;
-            this.label_AciklamaSesleri.Location = new System.Drawing.Point(373, 34);
+            this.label_AciklamaSesleri.Location = new System.Drawing.Point(271, 34);
             this.label_AciklamaSesleri.Name = "label_AciklamaSesleri";
             this.label_AciklamaSesleri.Size = new System.Drawing.Size(106, 24);
             this.label_AciklamaSesleri.TabIndex = 3;
@@ -944,7 +974,7 @@
             // checkBox_AciklamaSesleri
             // 
             this.checkBox_AciklamaSesleri.AutoSize = true;
-            this.checkBox_AciklamaSesleri.Location = new System.Drawing.Point(346, 42);
+            this.checkBox_AciklamaSesleri.Location = new System.Drawing.Point(248, 40);
             this.checkBox_AciklamaSesleri.Name = "checkBox_AciklamaSesleri";
             this.checkBox_AciklamaSesleri.Size = new System.Drawing.Size(15, 14);
             this.checkBox_AciklamaSesleri.TabIndex = 3;
@@ -978,9 +1008,9 @@
             this.tabPage_Yardim.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.tabPage_Yardim.BackgroundImage = global::MediaPlayer.Properties.Resources.ArkaplanYardim;
             this.tabPage_Yardim.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.tabPage_Yardim.Controls.Add(this.linkLabel1);
-            this.tabPage_Yardim.Controls.Add(this.label2);
             this.tabPage_Yardim.Controls.Add(this.label1);
+            this.tabPage_Yardim.Controls.Add(this.linkLabel1);
+            this.tabPage_Yardim.Controls.Add(this.label3);
             this.tabPage_Yardim.Location = new System.Drawing.Point(4, 49);
             this.tabPage_Yardim.Name = "tabPage_Yardim";
             this.tabPage_Yardim.Padding = new System.Windows.Forms.Padding(3);
@@ -991,41 +1021,44 @@
             // linkLabel1
             // 
             this.linkLabel1.ActiveLinkColor = System.Drawing.Color.DodgerBlue;
+            this.linkLabel1.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(114)))), ((int)(((byte)(188)))));
-            this.linkLabel1.Location = new System.Drawing.Point(427, 383);
+            this.linkLabel1.Location = new System.Drawing.Point(32, 291);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(104, 24);
             this.linkLabel1.TabIndex = 2;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "github.com";
+            this.linkLabel1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.linkLabel1.VisitedLinkColor = System.Drawing.Color.WhiteSmoke;
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
-            // label2
+            // label3
             // 
-            this.label2.BackColor = System.Drawing.Color.Transparent;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label2.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label2.Location = new System.Drawing.Point(359, 220);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(240, 24);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Haziran 2016";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label3.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label3.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label3.Location = new System.Drawing.Point(31, 148);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(595, 94);
+            this.label3.TabIndex = 3;
+            this.label3.Text = "Bu program Celal Bayar Üniversitesi, Turgutlu MYO UZEM öğrencileri tarafından, gö" +
+    "rme zorluğu yaşayanlar için tasarlanmıştır. Haziran 2016";
             // 
             // label1
             // 
-            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label1.Location = new System.Drawing.Point(287, 136);
+            this.label1.Location = new System.Drawing.Point(32, 255);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(385, 97);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Bu program Celal Bayar Üniversitesi, Turgutlu MYO. UZEM Öğrencileri tarafından, g" +
-    "örme zorluğu yaşayanlar için tasarlanmıştır.";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.label1.Size = new System.Drawing.Size(122, 25);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Haziran 2016";
             // 
             // Form1
             // 
@@ -1037,7 +1070,8 @@
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(400, 350);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "UZEM Medya Oynatıcı";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.mpTabControl_Ana_Menu.ResumeLayout(false);
@@ -1058,6 +1092,7 @@
             this.tabPage_Ayarlar.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_konusma)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeUyariveHata)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeAciklama)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeBaslik)).EndInit();
@@ -1138,11 +1173,13 @@
         public MPButon mpButon_Dosya_Ekle;
         public System.Windows.Forms.ListView listView_Album;
         public System.Windows.Forms.ListView listView_Sanatci;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.Label label2;
         public System.Windows.Forms.ImageList ımageList_Muzik;
         public System.Windows.Forms.ImageList ımageList_Video;
+        private System.Windows.Forms.CheckBox checkBox_OkumaSesleri;
+        public System.Windows.Forms.TrackBar trackBar_konusma;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label1;
     }
 }
 

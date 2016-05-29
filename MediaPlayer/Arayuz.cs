@@ -149,7 +149,6 @@ namespace MediaPlayer
             catch (Exception)
             {
 
-                throw;
             }
 
 
