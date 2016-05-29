@@ -14,13 +14,13 @@ namespace MediaPlayer.ListelemeIslemleri
     #region Listele
     class Listele
     {
-        public ListViewItem klasorden_Listele(int no, string dosya) // listview son sıra numarası ve dosya yolu
+        public ListViewItem klasorden_Listele(int no, string dosyaYolu) // listview son sıra numarası ve dosya yolu
         {
 
             Form1 frm1 = (Form1)Application.OpenForms["Form1"];
 
             ListViewItem yItem = new ListViewItem();
-            IWMPMedia media = frm1.axWindowsMediaPlayer1.newMedia(dosya);
+            IWMPMedia media = frm1.axWindowsMediaPlayer1.newMedia(dosyaYolu);
             no += 1;
             yItem.Text = no.ToString();
             yItem.SubItems.AddRange(new[] { media.name, media.durationString, media.sourceURL });
@@ -33,12 +33,15 @@ namespace MediaPlayer.ListelemeIslemleri
     class ListeGrup 
     {
         Form1 frm1 = (Form1)Application.OpenForms["Form1"];
+        private WMPLib.WindowsMediaPlayer wmp_Listele;
+        IWMPMedia mediaL;
 
         DataTable table1 = new DataTable("Bilgiler"); //Tablo oluşturuluyor.
         DataTable table2 = new DataTable("Sorgu"); //Sorgu tablosu oluşturuluyor.
 
         public ListeGrup()
         {
+            wmp_Listele = new WMPLib.WindowsMediaPlayer();
             //Kolonlar oluşturuluyor.
             table1.Columns.Add("DosyaAdi");
             table1.Columns.Add("Dizin");
@@ -58,32 +61,32 @@ namespace MediaPlayer.ListelemeIslemleri
 
         public void Ekle(string yol, params string[] dosya_Turu) //Dosya dizinini dışardan alarak dosya bilgilerini tablolara ekler.
         {
-            IWMPMedia media = frm1.axWindowsMediaPlayer1.newMedia(yol); //media dosyası tanımlanıyor.
+            mediaL = wmp_Listele.newMedia(yol); //media dosyası tanımlanıyor.
             string sanatci, album, tur;
 
             //Medyanın sanatçı bilgisi boşsa, Bilinmeyen Sanatçı görünecek.
-            if (media.getItemInfo("Author") == "")
+            if (mediaL.getItemInfo("Author") == "")
             {
                 sanatci = "Bilinmeyen Sanatçı";
             }
             else
             {
-                sanatci = media.getItemInfo("Author");
+                sanatci = mediaL.getItemInfo("Author");
             }
             //Medyanın albüm bilgisi boşsa, Bilinmeyen Albüm görünecek.
-            if (media.getItemInfo("Album") == "")
+            if (mediaL.getItemInfo("Album") == "")
             {
                 album = "Bilinmeyen Albüm";
             }
             else
             {
-                album = media.getItemInfo("Album");
+                album = mediaL.getItemInfo("Album");
             }
 
-            tur = Path.GetExtension(media.sourceURL);
+            tur = Path.GetExtension(mediaL.sourceURL);
 
             //Bilgiler DataTable satırına ekleniyor.
-            table1.Rows.Add(media.name, media.sourceURL, media.durationString, album, sanatci, tur);
+            table1.Rows.Add(mediaL.name, mediaL.sourceURL, mediaL.durationString, album, sanatci, tur);
         }
 
 
@@ -149,9 +152,6 @@ namespace MediaPlayer.ListelemeIslemleri
 
             return Item;
         }
-
-
-
         public void Sorgu(params string[] turler) //İstenen dosya türleri.
         { 
             /* Sorgu oluşturuluyor. */
@@ -178,20 +178,23 @@ namespace MediaPlayer.ListelemeIslemleri
             }
         }
 
-
-        public ListViewItem SorguBilgi(int siraNo, string[] grup) //Bilgisi alınacak dosyanın sıra numarası ve istenen bilgiler karışık olarak.
+        /// <summary>
+        /// Dosya bilgileri listeye ekleneceği sıra ile karışık çağrılabilir Örn. SorguBilgi(new[] { "DosyaAdi", "Sure", "Dizin", "Album" });
+        /// </summary>
+        public List<ListViewItem> SorguBilgi(string[] grup)
         {
-            ListViewItem Items = new ListViewItem(); //Yeni listViewItem oluşturuluyor.
+            List<ListViewItem> ItemList;
 
             if (table2.Rows.Count>0)
             {
-                try
+                ItemList = new List<ListViewItem>();
+                
+                for (int i = 0; i < table2.Rows.Count; i++)
                 {
-
-                    //Items.Text = ""; //Items.Text = table2.Rows[siraNo][grup[0]].ToString(); //Yeni oluşturulan listViewItem ilk sutununa, DateTablodaki istenilen satır ve sütundaki bilgi giriliyor.
-                    //Items.ImageIndex = 1;
-                    
-                    switch (table2.Rows[siraNo]["Tur"].ToString())
+                    ListViewItem Items = new ListViewItem(); //Yeni listViewItem oluşturuluyor.
+                  try
+                  {
+                    switch (table2.Rows[i]["Tur"].ToString())
                     {
                         case ".amr":
                             Items.ImageKey = "amr.png";
@@ -226,49 +229,36 @@ namespace MediaPlayer.ListelemeIslemleri
                 }
                 catch (Exception)
                 {
+                        //Aşağıdaki kod çalıştırıldığında eğer eklenen dosya türü tablolarda yok ise, istenen bilginin kendisi ıtemin ilk değeri olarak giriliyor,
+                        //desteklenmeyen dosyalar için listede uyarı görüntülenir.
+                        //Items.Text = grup[i];
+                        //Items.SubItems.Add("Eklenen dosya desteklenmiyor.");
+                    }
 
-                    //Items.Text = grup[0];  //eğer istenen bilgi tablolarda yok ise, istenen bilginin kendisi ıtemin ilk değeri olarak giriliyor.
-                }
-
-                for (int i = 0; i < grup.Length; i++) // ıtemin sonraki sutunlarını doldurmak için döngüye giriliyor.
+                    for (int j = 0; j < grup.Length; j++) // ıtemin sonraki sutunlarını doldurmak için döngüye giriliyor.
                 {
                     try
                     {
-                        Items.SubItems.Add(table2.Rows[siraNo][grup[i]].ToString()); //Yeni oluşturulan listViewItem sonraki sutunlarına, DateTablodaki istenilen satır ve sütundaki bilgiler sırayla giriliyor.
+                        Items.SubItems.Add(table2.Rows[i][grup[j]].ToString()); //Yeni oluşturulan listViewItem sonraki sutunlarına, DateTablodaki istenilen satır ve sütundaki bilgiler sırayla giriliyor.
                     }
                     catch (Exception)
                     {
-                        //Items.SubItems.Add(grup[i]); //eğer istenen bilgi tablolarda yok ise, istenen bilginin kendisi, ıtemin sutununa değer olarak giriliyor.
-                    }
+                         //Aşağıdaki kod çalıştırıldığında eğer eklenen dosya türü bilgisi tablolarda yok ise,
+                         //listede uyarı görüntülenir.
+                         //Items.SubItems.Add("Dosya bilgisi bulunamadı.");
+                        }
 
-                }
+                    }
+                    ItemList.Add(Items);
+              }
+                return ItemList;
             }
             else
             {
-                Items = null;
+                return ItemList = null;
             }
 
-
-            ///* Itemin içeriği kontrol ediliyor */
-            //bool it = false;
-            //foreach (ListViewItem.ListViewSubItem ic in Items.SubItems)
-            //{
-            //    if (ic.ToString() != "")
-            //    {
-            //        it = true;
-            //    }
-            //}
-            ///* Itemin içeriği boşsa null Item gönderiliyor. */
-            //if (it == true)
-            //{
-            //    return Items;
-            //}
-            //else
-            //{
-            //    Items.Remove();
-            //    return Items = null;
-            //}
-            return Items;
+            
         }
     }
     #endregion

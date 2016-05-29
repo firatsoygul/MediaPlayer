@@ -154,10 +154,6 @@
     <value>Resources\h3.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>bu_dosya_turu_desteklenmiyor</comment>
   </data>
-  <data name="h4" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\h4.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-    <comment>desteklenmeyen_bazi_dosyalar_listelere_eklenemedi</comment>
-  </data>
   <data name="hk1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\hk1.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>Bu program Celal Bayar Üniversitesi, Turgutlu MYO UZEM Öğrencileri tarafından, görme zorluğu çekenler için tasarlanmıştır.</comment>
@@ -165,6 +161,34 @@
   <data name="k1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\k1.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>oynatmayi_baslat</comment>
+  </data>
+  <data name="k10" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k10.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Açıklama sesleri açık</comment>
+  </data>
+  <data name="k11" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k11.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Açıklama sesleri kapalı</comment>
+  </data>
+  <data name="k12" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k12.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Uyarı sesleri açık</comment>
+  </data>
+  <data name="k13" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k13.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Uyarı sesleri kapalı</comment>
+  </data>
+  <data name="k14" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k14.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Başlık ses seviyesi</comment>
+  </data>
+  <data name="k15" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k15.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Açıklama ses seviyesi</comment>
+  </data>
+  <data name="k16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k16.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Uyarı ses seviyesi</comment>
   </data>
   <data name="k2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\k2.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -181,6 +205,22 @@
   <data name="k5" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\k5.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>onceki</comment>
+  </data>
+  <data name="k6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k6.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Ses</comment>
+  </data>
+  <data name="k7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k7.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>İlerleme</comment>
+  </data>
+  <data name="k8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k8.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Başlık sesleri açık</comment>
+  </data>
+  <data name="k9" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\k9.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>Başlık sesleri kapalı</comment>
   </data>
   <data name="m1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\m1.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -217,6 +257,14 @@
   <data name="m6" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\m6.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>yardim</comment>
+  </data>
+  <data name="m7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\m7.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>uygulama_hakkında</comment>
+  </data>
+  <data name="m8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\m8.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>hakkında</comment>
   </data>
   <data name="o1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\o1.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
@@ -261,6 +309,18 @@
   <data name="u16" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\u16.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     <comment>secilen_dosyalar_listelere_ekleniyor</comment>
+  </data>
+  <data name="u17" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\u17.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>dosyalar_eklendi</comment>
+  </data>
+  <data name="u18" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\u18.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>desteklenmeyen_bazi_dosyalar_listelere_eklenemedi</comment>
+  </data>
+  <data name="u19" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>Resources\u19.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <comment>liste_bos</comment>
   </data>
   <data name="u2" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\u2.mp3;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>

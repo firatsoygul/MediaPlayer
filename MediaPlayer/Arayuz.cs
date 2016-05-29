@@ -16,7 +16,7 @@ namespace MediaPlayer
 {
     #region MPTabControl
 
-    class MPTabControl : TabControl
+    public class MPTabControl : TabControl
     {
         public MPTabControl()
         {
@@ -160,7 +160,7 @@ namespace MediaPlayer
     }
     #endregion
     #region MPButon
-    class MPButon : Button
+    public class MPButon : Button
     {
         public MPButon()
         {
@@ -179,6 +179,8 @@ namespace MediaPlayer
             Text = "MPButon";
             UseVisualStyleBackColor = false;
             //Click += new System.EventHandler(this.buttonVideoEkle_Click);
+            //wmp_Baslik.PlayStateChange += new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(wmp_Baslik_PlayStateChange);
+
         }
     }
     #endregion MPButon

@@ -13,7 +13,7 @@ namespace MediaPlayer.Playlist
         Form1 frm1 = (Form1)Application.OpenForms["Form1"];
         IWMPPlaylist plylst = null;
         int secilen;
-
+        //Sırasıyla Parçaların alınacağı ListView, dosya yolunun bulunduğu sütunun indexi, playlist ismi, hangi parçaya tıklandığı... bilgilerini alır.
         public ListView_to_Playlist(ListView lvisim, int urlSUtunNo, string plisim, int secilenItem = 0)
         {
             secilen = secilenItem;

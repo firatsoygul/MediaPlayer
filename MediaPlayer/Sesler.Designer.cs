@@ -153,16 +153,6 @@ namespace MediaPlayer {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] h4 {
-            get {
-                object obj = ResourceManager.GetObject("h4", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] hk1 {
             get {
                 object obj = ResourceManager.GetObject("hk1", resourceCulture);
@@ -176,6 +166,76 @@ namespace MediaPlayer {
         internal static byte[] k1 {
             get {
                 object obj = ResourceManager.GetObject("k1", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k10 {
+            get {
+                object obj = ResourceManager.GetObject("k10", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k11 {
+            get {
+                object obj = ResourceManager.GetObject("k11", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k12 {
+            get {
+                object obj = ResourceManager.GetObject("k12", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k13 {
+            get {
+                object obj = ResourceManager.GetObject("k13", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k14 {
+            get {
+                object obj = ResourceManager.GetObject("k14", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k15 {
+            get {
+                object obj = ResourceManager.GetObject("k15", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k16 {
+            get {
+                object obj = ResourceManager.GetObject("k16", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -216,6 +276,46 @@ namespace MediaPlayer {
         internal static byte[] k5 {
             get {
                 object obj = ResourceManager.GetObject("k5", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k6 {
+            get {
+                object obj = ResourceManager.GetObject("k6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k7 {
+            get {
+                object obj = ResourceManager.GetObject("k7", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k8 {
+            get {
+                object obj = ResourceManager.GetObject("k8", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] k9 {
+            get {
+                object obj = ResourceManager.GetObject("k9", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -306,6 +406,26 @@ namespace MediaPlayer {
         internal static byte[] m6 {
             get {
                 object obj = ResourceManager.GetObject("m6", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] m7 {
+            get {
+                object obj = ResourceManager.GetObject("m7", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] m8 {
+            get {
+                object obj = ResourceManager.GetObject("m8", resourceCulture);
                 return ((byte[])(obj));
             }
         }
@@ -416,6 +536,36 @@ namespace MediaPlayer {
         internal static byte[] u16 {
             get {
                 object obj = ResourceManager.GetObject("u16", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] u17 {
+            get {
+                object obj = ResourceManager.GetObject("u17", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] u18 {
+            get {
+                object obj = ResourceManager.GetObject("u18", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] u19 {
+            get {
+                object obj = ResourceManager.GetObject("u19", resourceCulture);
                 return ((byte[])(obj));
             }
         }
