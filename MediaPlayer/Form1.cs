@@ -20,6 +20,7 @@ using System.Globalization;
 using System.Collections;
 using System.Speech.Synthesis;
 using MediaPlayer.DizinYoneticisi;
+using System.Reflection;
 
 namespace MediaPlayer
 {
@@ -37,18 +38,58 @@ namespace MediaPlayer
         //ses.SpeakAsyncCancelAll();
         public bool seslendirmeBaslikAcikmi=true, seslendirmeAciklamaAcikmi=true, seslendirmeUyariveHataAcikmi=true, seslendirmeKonusmaSesiAcikmi=true; //Seslendirmelerin açık-kapalı durumunu tutan değişkenler.
         public string sonAcilanDizin = string.Empty; // En son dosya yüklenen dizini tutuyor.
-        public int seslendirmeBaslikSesi=100, seslendirmeAciklamaSesi=100, seslendirmeUyariveHataSesi=100, seslendirmeKonusmaSesi=100;
+        public int oynatmaSesi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi, seslendirmeUyariveHataSesi, seslendirmeKonusmaSesi;
         public Seslendirme.Uyari SesliUyari = new Seslendirme.Uyari();
         bool backgroundCompletedEventCancel = true; // İş parçacığının tamamlandığında yapılacakları tutan eventi iptal eden değişken.
         public SpeechSynthesizer ses = new SpeechSynthesizer();
         #region Form Load
+
+        //ColumnHeader column_AlbumListesi_Album_Settings = new ColumnHeader();
+        //ColumnHeader column_AlbumListesi_Sanatci_Settings = new ColumnHeader();
+        //ColumnHeader column_AlbumListesi_DosyaAdi_Settings = new ColumnHeader();
+        //ColumnHeader column_AlbumListesi_Sure_Settings = new ColumnHeader();
+        //ColumnHeader column_AlbumListesi_Dizin_Settings = new ColumnHeader();
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            oynatmaSesi = Properties.Settings.Default.oynatmaSesi;
+            seslendirmeBaslikSesi = Properties.Settings.Default.baslikSesi;
+            seslendirmeUyariveHataSesi = Properties.Settings.Default.uyariVeHataSesi;
+            seslendirmeKonusmaSesi = Properties.Settings.Default.konusmaSesi;
+            seslendirmeBaslikAcikmi = Properties.Settings.Default.baslikSesiAcikmi;
+            seslendirmeAciklamaAcikmi = Properties.Settings.Default.aciklamaSesiAcikmi;
+            seslendirmeUyariveHataAcikmi = Properties.Settings.Default.uyariVeHataSesiAcikmi;
+            seslendirmeKonusmaSesiAcikmi = Properties.Settings.Default.konusmaSesiAcikmi;
+            seslendirmeAciklamaSesi = Properties.Settings.Default.aciklamaSesi;
+            
+
+            //if (Properties.Settings.Default.listView_Album_Settings == null)
+            //{
+            //    Properties.Settings.Default.listView_Album_Settings = new ListView();
+                
+                
+            //    Properties.Settings.Default.listView_Album_Settings.Columns.AddRange(new ColumnHeader[] {
+            //    this.column_AlbumListesi_Album_Settings,
+            //    this.column_AlbumListesi_Sanatci_Settings,
+            //    this.column_AlbumListesi_DosyaAdi_Settings,
+            //    this.column_AlbumListesi_Sure_Settings,
+            //    this.column_AlbumListesi_Dizin_Settings});
+            //}
+            //else
+            //{
+            //    listView_Album.Items.AddRange(Properties.Settings.Default.listView_Album_Settings.Items);
+            //    //foreach (ListViewItem item in Properties.Settings.Default.listView_Album.Items)
+            //    //{
+            //    //    listView_Album.Items.Add(item);
+            //    //}
+            //    ////listView_Album = Properties.Settings.Default.listView_Album;
+            //}
+
             axWindowsMediaPlayer1.uiMode = "none";
             backgroundWorker_UyariSesleriOlustur.RunWorkerAsync();
             trackBar_Oynat.MinimumSize = new System.Drawing.Size(950, 25);
             /*Seslendirme*/
-            trackBar_Ses.Value = axWindowsMediaPlayer1.settings.volume;
+            trackBar_Ses.Value = oynatmaSesi;
             trackBar_SeslendirmeBaslik.Value = seslendirmeBaslikSesi;
             trackBar_SeslendirmeAciklama.Value = seslendirmeAciklamaSesi;
             trackBar_SeslendirmeUyariveHata.Value = seslendirmeUyariveHataSesi;
@@ -58,11 +99,36 @@ namespace MediaPlayer
             checkBox_UyariveHataSesleri.Checked = seslendirmeUyariveHataAcikmi;
             checkBox_OkumaSesleri.Checked = seslendirmeKonusmaSesiAcikmi;
             seslendir.Durdur();
+        }
+        #endregion Form Load
 
+        #region Form Closing
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Properties.Settings.Default.oynatmaSesi = oynatmaSesi;
+            Properties.Settings.Default.baslikSesi = seslendirmeBaslikSesi;
+            Properties.Settings.Default.aciklamaSesi = seslendirmeAciklamaSesi;
+            Properties.Settings.Default.uyariVeHataSesi = seslendirmeUyariveHataSesi;
+            Properties.Settings.Default.konusmaSesi = seslendirmeKonusmaSesi;
+            Properties.Settings.Default.baslikSesiAcikmi = seslendirmeBaslikAcikmi;
+            Properties.Settings.Default.aciklamaSesiAcikmi = seslendirmeAciklamaAcikmi;
+            Properties.Settings.Default.uyariVeHataSesiAcikmi = seslendirmeUyariveHataAcikmi;
+            Properties.Settings.Default.konusmaSesiAcikmi = seslendirmeKonusmaSesiAcikmi;
+            //if (listView_Album != null)
+            //{
+            //    //foreach (ListViewItem item in listView_Album.Items)
+            //    //{
+            //    //    Properties.Settings.Default.listView_Album.Items.Add(item);
+            //    //}
+            //    Properties.Settings.Default.listView_Album_Settings.Items.AddRange(listView_Album.Items);
+
+            //}
+            
+            //listView_Album.Items.AddRange(Properties.Settings.Default.listView_Album.Items);
+            Properties.Settings.Default.Save();
 
         }
-
-        #endregion Form Load
+        #endregion Form Closing
         #region Form Tuş yakalama
 
         //MediaPlayer.Gezinme.Gezinme tus = new MediaPlayer.Gezinme.Gezinme();
@@ -208,8 +274,8 @@ namespace MediaPlayer
         }
         #endregion BackGroundWorker Liste Oluştur
 
-        public IWMPPlaylist tumListe;
-
+        public IWMPPlaylist tumListe ;
+        
        
         #region Kontrol labelleri sanatçı ve şarkı ismi
 
@@ -285,9 +351,17 @@ namespace MediaPlayer
 
         private void tumListedenEnter()
         {
-            tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Tüm Liste"); //Yeni playlist oluşturuluyor.
+            try
+            {
+                axWindowsMediaPlayer1.playlistCollection.getByName("TümListe").Item(0).clear();
+                tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("TümListe");
+            }
+            catch (Exception)
+            {
+                tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("TümListe"); //Yeni playlist oluşturuluyor.
+            }
+            
             axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
-
             foreach (ListViewItem pl in listView_Tum_Liste.Items) //Tüm listenin olduğu listview satır sayısı kadar döngüye giriliyor.
             {
                 IWMPMedia media = axWindowsMediaPlayer1.newMedia(pl.SubItems[3].Text); //Yeni media nesnesi oluşturuluyor ve listview.itemin ilgili sütunundan url alınıyor.
@@ -306,8 +380,15 @@ namespace MediaPlayer
 
         private void listedenOynat(ListView liste, int dizinhangiSutunda, int secilenSatir)
         {
+            try
+            {
+                axWindowsMediaPlayer1.playlistCollection.getByName(liste.Name).Item(0).clear();
+            }
+            catch (Exception)
+            {
+                tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist(liste.Name); //Yeni playlist oluşturuluyor.
+            }
 
-            tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Liste"); //Yeni playlist oluşturuluyor.
             axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
             
             foreach (ListViewItem item in liste.Items) //Albüm listesinin olduğu listview satır sayısı kadar döngüye giriliyor.
@@ -389,20 +470,6 @@ namespace MediaPlayer
         private void listView_Album_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             listedenOynat(listView_Album, 4, listView_Album.SelectedItems[0].Index);
-            //tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist("Albüm Listesi"); //Yeni playlist oluşturuluyor.
-            //axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
-
-            //foreach (ListViewItem pl in listView_Album.Items) //Albüm listesinin olduğu listview satır sayısı kadar döngüye giriliyor.
-            //{
-            //    IWMPMedia media = axWindowsMediaPlayer1.newMedia(pl.SubItems[4].Text); //Yeni media nesnesi oluşturuluyor ve listview.itemin ilgili sütunundan url alınıyor.
-            //    tumListe.appendItem(media); //Oluşturulan medya "Tüm Listeye" ekleniyor.
-            //}
-
-            //int sn = listView_Album.SelectedItems[0].Index; // Tıklanan parçanın numarası tutuluyor, oynatmaya bu parçadan başlanacak.
-            //axWindowsMediaPlayer1.currentPlaylist = tumListe; //"Albüm listesi" mediaPlayera ekleniyor.
-            //axWindowsMediaPlayer1.Ctlcontrols.playItem(axWindowsMediaPlayer1.currentPlaylist.get_Item(sn));// Oynat
-            //mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
-            //kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
         }
         #endregion Albüm Listesi Çift Tıklama
         
@@ -410,13 +477,6 @@ namespace MediaPlayer
         private void listView_Sanatci_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             listedenOynat(listView_Sanatci, 3, listView_Sanatci.SelectedItems[0].Index);
-            //axWindowsMediaPlayer1.Ctlcontrols.stop();
-            //ListView_to_Playlist pl = new ListView_to_Playlist(listView_Sanatci, 3, "Sanatçı Listesi", listView_Sanatci.SelectedItems[0].Index); //Yeni playlist oluşturuluyor.
-            //axWindowsMediaPlayer1.currentPlaylist = pl.Playlist(); //"Playlist" mediaPlayera ekleniyor.
-            //axWindowsMediaPlayer1.Ctlcontrols.playItem(axWindowsMediaPlayer1.currentPlaylist.get_Item(pl.Secilen()));// Oynat
-            ////pl.sil(); //Playlist siliniyor.
-            //mpTabControl_Ana_Menu.SelectedIndex = 3;//Oynatma sekmesini aç.
-            ////kontolEtiketleriniAyarla();//Player altındaki sanatçı ve albüm ismini değiştirir.
         }
         #endregion Sanatçı Listesi Çift Tıklama
         
@@ -704,6 +764,7 @@ namespace MediaPlayer
                 button_KontrolOynat.Visible = false;
                 button_KontrolDurdur.Visible = true;
                 axWindowsMediaPlayer1.Ctlcontrols.play();// Oynat
+                kontolEtiketleriniAyarla();
             }
             seslendir.Durdur();
         }
@@ -754,6 +815,7 @@ namespace MediaPlayer
         private void trackBar_Ses_Scroll(object sender, EventArgs e)
         {
             axWindowsMediaPlayer1.settings.volume = trackBar_Ses.Value;
+            oynatmaSesi = trackBar_Ses.Value;
         }
         private void trackBar_Oynat_MouseUp(object sender, MouseEventArgs e)
         {
@@ -1344,31 +1406,6 @@ namespace MediaPlayer
         {
             ses.SpeakAsyncCancelAll();
             SesliUyari.Durdur();
-            //seslendir.Oynat(mpTabControl_Listeler.SelectedTab.Name, seslendirmeBaslikAcikmi, seslendirmeAciklamaAcikmi, seslendirmeBaslikSesi, seslendirmeAciklamaSesi);
-            //tabPage_Album.Select();
-            //SelectNextControl(tabPage_Album, true, true, true, false);
-            //SelectNextControl(mpTabControl_Listeler., true, true, true, false);
-            //mpTabControl_Listeler.SelectTab(0);
-            //mpTabControl_Listeler.Focus();
-            //tabPage_Tum_Listeler.Select();
-            //mpTabControl_Listeler.SelectedIndex = 0;
-            //tabPage_Tum_Listeler.Focus();
-            //tabPage_Tum_Listeler.Select();
-            //mpTabControl_Listeler.TabPages["tabPage_Tum_Listeler"].Focus();
-            //mpTabControl_Listeler.TabPages["tabPage_Tum_Listeler"].Select();
-            //tabPage_Tum_Listeler.SelectNextControl(mpTabControl_Listeler.TabPages[0], true, true, true, false);
-            //tabPage_Tum_Listeler.SelectNextControl(mpTabControl_Listeler.TabPages["tabPage_Album"], true, false, true, true);
-            //tabPage_Tum_Listeler.SelectNextControl(mpTabControl_Ana_Menu.Controls[0], true, true, true, true);
-            //tabPage_Tum_Listeler.SelectNextControl(mpTabControl_Listeler, true, true, true, true);
-
-            //if (nereden == "klasorSec")
-            //{
-            //    nereden = "";
-            //    mpTabControl_Ana_Menu.Controls[0].Controls[0].Focus(); // Ana Menü tabcontrolü içindeki Listeler TabControle odaklanıyor.
-            //    mpTabControl_Ana_Menu.Controls[0].Controls[0].Select(); // Ana Menü tabControlü içindeki Listeler TabControl seçiliyor.
-            //    mpTabControl_Listeler.SelectedIndex = 0; // Listeler TabControlündeki Tüm Liste tabPage seçiliyor.
-            //}
-
 
         }
 
@@ -1391,6 +1428,35 @@ namespace MediaPlayer
             mpTabControl_Listeler.SelectedIndex = 2; // Listeler TabControlündeki Sanatcı tabPage seçiliyor.
         }
         #endregion Kontroller seçildiğinde - çıkıldığında
+
+        //private void cikarkenListeleriKaydet()
+        //{
+        //    axWindowsMediaPlayer1.Ctlcontrols.stop();// MediaPlayer nesnesi çalıyor olma ihtimaline karşı durduruluyor.
+
+        //    List<ListView> listeler = new List<ListView>();
+        //    listeler.Add(listView_Tum_Liste);
+        //    listeler.Add(listView_Album);
+        //    listeler.Add(listView_Sanatci);
+        //    listeler.Add(listView_Muzik);
+        //    listeler.Add(listView_Video);
+
+        //    foreach (ListView liste in listeler)
+        //    {
+        //        try
+        //        {
+        //            axWindowsMediaPlayer1.playlistCollection.getByName(liste.Name).Item(0).clear();
+        //        }
+        //        catch (Exception)
+        //        {
+        //            tumListe = axWindowsMediaPlayer1.playlistCollection.newPlaylist(liste.Name); //Yeni playlist oluşturuluyor.
+        //        }
+        //        foreach (ListViewItem item in liste.Items) //Albüm listesinin olduğu listview satır sayısı kadar döngüye giriliyor.
+        //        {
+        //            //IWMPMedia media = axWindowsMediaPlayer1.newMedia(item.SubItems[dizinhangiSutunda].Text); //Yeni media nesnesi oluşturuluyor ve listview.itemin ilgili sütunundan url alınıyor.
+        //            //tumListe.appendItem(media); //Oluşturulan medya "Playliste" ekleniyor.
+        //        }
+        //    }
+        //}
 
     }
 }

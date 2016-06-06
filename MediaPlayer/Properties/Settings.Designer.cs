@@ -8,22 +8,137 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MediaPlayer.Properties
-{
-
-
+namespace MediaPlayer.Properties {
+    
+    
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "11.0.0.0")]
-    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase
-    {
-
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
-
-        public static Settings Default
-        {
-            get
-            {
+        
+        public static Settings Default {
+            get {
                 return defaultInstance;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int aciklamaSesi {
+            get {
+                return ((int)(this["aciklamaSesi"]));
+            }
+            set {
+                this["aciklamaSesi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int baslikSesi {
+            get {
+                return ((int)(this["baslikSesi"]));
+            }
+            set {
+                this["baslikSesi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int oynatmaSesi {
+            get {
+                return ((int)(this["oynatmaSesi"]));
+            }
+            set {
+                this["oynatmaSesi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int konusmaSesi {
+            get {
+                return ((int)(this["konusmaSesi"]));
+            }
+            set {
+                this["konusmaSesi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("100")]
+        public int uyariVeHataSesi {
+            get {
+                return ((int)(this["uyariVeHataSesi"]));
+            }
+            set {
+                this["uyariVeHataSesi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool aciklamaSesiAcikmi {
+            get {
+                return ((bool)(this["aciklamaSesiAcikmi"]));
+            }
+            set {
+                this["aciklamaSesiAcikmi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool baslikSesiAcikmi {
+            get {
+                return ((bool)(this["baslikSesiAcikmi"]));
+            }
+            set {
+                this["baslikSesiAcikmi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool konusmaSesiAcikmi {
+            get {
+                return ((bool)(this["konusmaSesiAcikmi"]));
+            }
+            set {
+                this["konusmaSesiAcikmi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool uyariVeHataSesiAcikmi {
+            get {
+                return ((bool)(this["uyariVeHataSesiAcikmi"]));
+            }
+            set {
+                this["uyariVeHataSesiAcikmi"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Windows.Forms.ListView listView_Album_Settings {
+            get {
+                return ((global::System.Windows.Forms.ListView)(this["listView_Album_Settings"]));
+            }
+            set {
+                this["listView_Album_Settings"] = value;
             }
         }
     }

@@ -104,9 +104,10 @@
             this.checkBox_BaslikSesleri = new System.Windows.Forms.CheckBox();
             this.label_BaslikSesleri = new System.Windows.Forms.Label();
             this.tabPage_Yardim = new System.Windows.Forms.TabPage();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.mpTabControl_Ana_Menu.SuspendLayout();
             this.tabPage_CalmaListeleri.SuspendLayout();
             this.mpTabControl_Listeler.SuspendLayout();
@@ -127,6 +128,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeAciklama)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeBaslik)).BeginInit();
             this.tabPage_Yardim.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // openFileDialog_Dosya_Ekle
@@ -209,7 +211,7 @@
             this.tabPage_CalmaListeleri.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_CalmaListeleri.Size = new System.Drawing.Size(957, 523);
             this.tabPage_CalmaListeleri.TabIndex = 0;
-            this.tabPage_CalmaListeleri.Text = "Çalma Listeleri";
+            this.tabPage_CalmaListeleri.Text = "Listeler";
             // 
             // mpTabControl_Listeler
             // 
@@ -1008,6 +1010,7 @@
             this.tabPage_Yardim.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.tabPage_Yardim.BackgroundImage = global::MediaPlayer.Properties.Resources.ArkaplanYardim;
             this.tabPage_Yardim.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabPage_Yardim.Controls.Add(this.pictureBox1);
             this.tabPage_Yardim.Controls.Add(this.label1);
             this.tabPage_Yardim.Controls.Add(this.linkLabel1);
             this.tabPage_Yardim.Controls.Add(this.label3);
@@ -1018,6 +1021,29 @@
             this.tabPage_Yardim.TabIndex = 5;
             this.tabPage_Yardim.Text = "Hakkında";
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Image = global::MediaPlayer.Properties.Resources.logo180;
+            this.pictureBox1.Location = new System.Drawing.Point(24, 158);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(180, 180);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.label1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
+            this.label1.Location = new System.Drawing.Point(241, 257);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(122, 25);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "Haziran 2016";
+            // 
             // linkLabel1
             // 
             this.linkLabel1.ActiveLinkColor = System.Drawing.Color.DodgerBlue;
@@ -1025,7 +1051,7 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.BackColor = System.Drawing.Color.Transparent;
             this.linkLabel1.LinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(114)))), ((int)(((byte)(188)))));
-            this.linkLabel1.Location = new System.Drawing.Point(32, 291);
+            this.linkLabel1.Location = new System.Drawing.Point(241, 314);
             this.linkLabel1.Name = "linkLabel1";
             this.linkLabel1.Size = new System.Drawing.Size(104, 24);
             this.linkLabel1.TabIndex = 2;
@@ -1041,24 +1067,12 @@
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label3.Location = new System.Drawing.Point(31, 148);
+            this.label3.Location = new System.Drawing.Point(240, 152);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(595, 94);
             this.label3.TabIndex = 3;
             this.label3.Text = "Bu program Celal Bayar Üniversitesi, Turgutlu MYO UZEM öğrencileri tarafından, gö" +
-    "rme zorluğu yaşayanlar için tasarlanmıştır. Haziran 2016";
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.ForeColor = System.Drawing.SystemColors.ActiveBorder;
-            this.label1.Location = new System.Drawing.Point(32, 255);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(122, 25);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Haziran 2016";
+    "rme zorluğu yaşayanlar için tasarlanmıştır.";
             // 
             // Form1
             // 
@@ -1067,11 +1081,13 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(42)))), ((int)(((byte)(52)))));
             this.ClientSize = new System.Drawing.Size(965, 576);
             this.Controls.Add(this.mpTabControl_Ana_Menu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MinimumSize = new System.Drawing.Size(400, 350);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "UZEM Medya Oynatıcı";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
             this.mpTabControl_Ana_Menu.ResumeLayout(false);
@@ -1098,6 +1114,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_SeslendirmeBaslik)).EndInit();
             this.tabPage_Yardim.ResumeLayout(false);
             this.tabPage_Yardim.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1180,6 +1197,7 @@
         public System.Windows.Forms.TrackBar trackBar_konusma;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

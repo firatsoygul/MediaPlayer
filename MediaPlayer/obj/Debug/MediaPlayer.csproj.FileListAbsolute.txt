@@ -15,3 +15,9 @@ D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\AxInterop.WMPLib.dll
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.Sesler.resources
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.DizinYoneticisi.DizinYonetici.resources
 D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.DizinYoneticisi.DosyaYonetici.resources
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\MediaPlayer.exe.manifest
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\bin\Debug\MediaPlayer.application
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.TrustInfo.xml
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.exe.manifest
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.application
+D:\Yazilim\Git\MediaPlayer\MediaPlayer\obj\Debug\MediaPlayer.HafizaR.Ayarlar.resources
