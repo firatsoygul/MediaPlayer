@@ -7,18 +7,21 @@ Uygulamanın tüm özellikleri, klavye tuşları ile kullanılabilir.
 
 Ana menüler arasında gezinmek için:
 ```sh
-TAB  veya  SHIFT+TAB tuşları
+SOL - SAĞ OK veya YUKARI - AŞAĞI OK tuşları
 ```
+![Ana Menü](https://raw.githubusercontent.com/firatsyg/MediaPlayer/master/EkranGoruntuleri/1.png?raw=true)
 
 Özellikler içinde gezinmek için:
 ```sh
-SOL - SAĞ OK veya YUKARI - AŞAĞI OK tuşları
+TAB  veya  SHIFT+TAB tuşları
 ```
+![Özellikler](https://raw.githubusercontent.com/firatsyg/MediaPlayer/master/EkranGoruntuleri/1_2.png?raw=true)
 
 Seçim için:
 ```sh
 SPACE veya ENTER tuşları
 ```
+![Ana Menü](https://raw.githubusercontent.com/firatsyg/MediaPlayer/master/EkranGoruntuleri/3_2.png?raw=true)
 
 Silmek için:
 ```sh
