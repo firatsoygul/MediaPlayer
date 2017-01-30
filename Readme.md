@@ -1,4 +1,4 @@
-# Görme Engelliler İçin Medya Oynatıcı
+# Görme Zorluğu Yaşayanlar İçin Medya Oynatıcı
 
 Bu uygulama bir öğrenci projesidir. Görme zorluğu yaşayanlar için hazırlanmıştır.
 
