@@ -1,6 +1,6 @@
 # Görme Zorluğu Yaşayanlar İçin Medya Oynatıcı
 
-Bu uygulama bir öğrenci projesidir. Görme zorluğu yaşayanlar için hazırlanmıştır.
+Görme zorluğu yaşayanlar için hazırlanmıştır.
 
 #### Kısayol tuşları
 Uygulamanın tüm özellikleri, klavye tuşları ile kullanılabilir.  
