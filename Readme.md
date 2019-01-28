@@ -68,6 +68,3 @@ Uyarı, hata ve onay ekranları:
 ![hata](https://github.com/firatsyg/MediaPlayer/blob/master/EkranGoruntuleri/Hata.png?raw=true)
 ![onay](https://github.com/firatsyg/MediaPlayer/blob/master/EkranGoruntuleri/Onay.png?raw=true)
 
-
-### Version
-1.0.0.5
